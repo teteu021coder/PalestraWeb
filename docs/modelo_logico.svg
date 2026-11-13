@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+<defs><pattern id="grade" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#c9c9c9"/></pattern></defs>
+<rect width="1800" height="1200" fill="#fff"/><rect width="1800" height="1200" fill="url(#grade)"/>
+<style>
+.tbl{fill:#fff;stroke:#000;stroke-width:1.4}
+.head{fill:#fff;stroke:#000;stroke-width:1.4}
+.sep{stroke:#000;stroke-width:1}
+.name{font:bold 16px Arial,sans-serif;fill:#000;text-anchor:middle}
+.field{font:14px Arial,sans-serif;fill:#000}
+.link{fill:none;stroke:#000;stroke-width:1.2}
+.card{font:13px Arial,sans-serif;fill:#000;text-anchor:middle}
+</style>
+<!-- tabelas -->
+<rect class="tbl" x="130" y="250" width="390" height="250"/><rect class="head" x="130" y="250" width="390" height="44"/><text class="name" x="325" y="278">AUTOR</text>
+<path class="sep" d="M130 335 H520 M130 376 H520 M130 417 H520 M130 458 H520"/>
+<text class="field" x="155" y="321">PK  id_autor : INTEGER</text><text class="field" x="155" y="362">nome : TEXT NOT NULL</text><text class="field" x="155" y="403">nacionalidade : TEXT</text><text class="field" x="155" y="444">AUTOINCREMENT</text>
+<rect class="tbl" x="690" y="180" width="440" height="330"/><rect class="head" x="690" y="180" width="440" height="44"/><text class="name" x="910" y="208">LIVRO</text>
+<path class="sep" d="M690 265 H1130 M690 306 H1130 M690 347 H1130 M690 388 H1130 M690 429 H1130 M690 470 H1130"/>
+<text class="field" x="715" y="251">PK  id_livro : INTEGER</text><text class="field" x="715" y="292">titulo : TEXT NOT NULL</text><text class="field" x="715" y="333">ano_publicacao : INTEGER</text><text class="field" x="715" y="374">quantidade : INTEGER NOT NULL DEFAULT 1</text><text class="field" x="715" y="415">FK  id_autor : INTEGER NOT NULL</text><text class="field" x="715" y="456">CHECK (quantidade &gt;= 0)</text>
+<rect class="tbl" x="130" y="760" width="390" height="250"/><rect class="head" x="130" y="760" width="390" height="44"/><text class="name" x="325" y="788">USUARIO</text>
+<path class="sep" d="M130 845 H520 M130 886 H520 M130 927 H520 M130 968 H520"/>
+<text class="field" x="155" y="831">PK  id_usuario : INTEGER</text><text class="field" x="155" y="872">nome : TEXT NOT NULL</text><text class="field" x="155" y="913">email : TEXT NOT NULL UNIQUE</text><text class="field" x="155" y="954">telefone : TEXT</text>
+<rect class="tbl" x="1210" y="580" width="460" height="290"/><rect class="head" x="1210" y="580" width="460" height="44"/><text class="name" x="1440" y="608">EMPRESTIMO</text>
+<path class="sep" d="M1210 665 H1670 M1210 706 H1670 M1210 747 H1670 M1210 788 H1670 M1210 829 H1670"/>
+<text class="field" x="1235" y="651">PK  id_emprestimo : INTEGER</text><text class="field" x="1235" y="692">data_emprestimo : TEXT NOT NULL</text><text class="field" x="1235" y="733">data_devolucao : TEXT</text><text class="field" x="1235" y="774">FK  id_usuario : INTEGER NOT NULL</text><text class="field" x="1235" y="815">FK  id_livro : INTEGER NOT NULL</text>
+<!-- relacionamentos 1:N -->
+<path class="link" d="M520 460 L610 460 L610 435 L690 435"/><text class="card" x="550" y="448">1</text><text class="card" x="665" y="423">N</text>
+<path class="link" d="M520 925 L900 925 L900 760 L1210 760"/><text class="card" x="560" y="913">1</text><text class="card" x="1180" y="748">N</text>
+<path class="link" d="M1130 435 L1170 435 L1170 815 L1210 815"/><text class="card" x="1150" y="423">1</text><text class="card" x="1195" y="803">N</text>
+</svg>

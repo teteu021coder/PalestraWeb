@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Capa · Arquivo Palestra</title>
+    <link rel="icon" href="docs/img/escudo.svg" />
+    <link rel="stylesheet" href="css/revista.css" />
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <header class="cabecalho">
+      <a class="marca" href="index.html"
+        ><img src="docs/img/escudo.svg" width="40" height="40" alt="" />Arquivo
+        <i>Palestra</i></a
+      >
+      <button id="abrir-menu" aria-controls="menu" aria-expanded="false">
+        Menu ☰
+      </button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="pages/historia.html">História</a>
+        <a href="pages/conquistas.html">Conquistas</a>
+        <a href="pages/idolos.html">Ídolos e elenco</a>
+        <a href="pages/galeria.html">Galeria</a>
+        <a href="pages/biblioteca.html" class="acervo"
+          >Biblioteca <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="conteudo">
+      <section class="capa">
+        <div class="chamada">
+          <p class="rubrica">Sociedade Esportiva Palmeiras</p>
+          <h1>O verde <br />vem de<br /><i>longe.</i></h1>
+          <p class="resumo">
+            De uma reunião em 1914 às vozes do Gol Norte, a história de um clube
+            contada por quem ocupou o campo e a arquibancada.
+          </p>
+          <a class="ler" href="pages/historia.html"
+            >Ler a história <b aria-hidden="true">→</b></a
+          >
+        </div>
+        <figure class="capa-foto">
+          <img
+            src="docs/img/torcida.webp"
+            width="1296"
+            height="972"
+            alt="O Gol Norte na final da Copa do Brasil."
+            fetchpriority="high"
+          />
+          <figcaption>Gol Norte <span>Fotografia de DanteCan</span></figcaption>
+        </figure>
+      </section>
+      <section class="sumario">
+        <div>
+          <p class="rubrica">Nesta edição</p>
+          <h2>Dentro do <i>arquivo.</i></h2>
+        </div>
+        <div>
+          <a href="pages/conquistas.html"
+            ><span>As finais da Libertadores</span
+            ><b aria-hidden="true">↗</b></a
+          ><a href="pages/idolos.html"
+            ><span>Os nomes por trás da camisa</span
+            ><b aria-hidden="true">↗</b></a
+          ><a href="pages/galeria.html"
+            ><span>O estádio em fotografias</span><b aria-hidden="true">↗</b></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="marca" href="index.html">Arquivo <i>Palestra</i></a
+      ><span>Projeto escolar independente</span
+      ><a href="docs/creditos.html">Créditos e fontes ↗</a>
+    </footer>
+    <script src="js/navegacao.js" defer></script>
+  </body>
+</html>
