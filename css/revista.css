@@ -500,3 +500,113 @@ footer {
       background-color 0.15s;
   }
 }
+
+
+/* Área de acesso aos canais oficiais do Palmeiras */
+.viva {
+  padding: clamp(48px, 7vw, 112px) var(--margem);
+  background: #e8e9dc;
+}
+.viva-intro {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1rem 4vw;
+  align-items: end;
+  margin-bottom: clamp(28px, 4vw, 58px);
+}
+.viva-intro .rubrica {
+  grid-column: 1 / -1;
+  color: var(--esmeralda);
+}
+.viva-intro h2 {
+  max-width: 12ch;
+}
+.viva-intro h2 i {
+  color: var(--esmeralda);
+}
+.viva-intro > p:last-child {
+  max-width: 43ch;
+  color: var(--cinza);
+  font: clamp(17px, 1.5vw, 22px)/1.5 var(--serifa);
+}
+.viva-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.viva-card {
+  min-height: 390px;
+  padding: clamp(24px, 3.5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--papel);
+  overflow: hidden;
+  position: relative;
+}
+.viva-card::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 1px solid #ffffff30;
+  border-radius: 50%;
+  right: -95px;
+  top: -105px;
+  box-shadow: 0 0 0 28px #ffffff0b, 0 0 0 58px #ffffff08;
+  pointer-events: none;
+}
+.viva-card.ingresso {
+  background: linear-gradient(135deg, #103e32, #092d25);
+}
+.viva-card.avanti {
+  background: linear-gradient(135deg, #1b5a42, #103e32);
+}
+.viva-numero {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: #d4e4cf;
+}
+.viva-card .rubrica {
+  color: #d4e4cf;
+  margin-bottom: 0.6rem;
+}
+.viva-card h3 {
+  font-size: clamp(42px, 5vw, 72px);
+  margin-bottom: 0.3em;
+}
+.viva-card div > p:not(.rubrica) {
+  max-width: 39ch;
+  color: #e1e7db;
+}
+.viva-card a {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background: var(--papel);
+  color: var(--verde);
+  text-decoration: none;
+  font-weight: 700;
+}
+.viva-card a:hover {
+  background: #dbe9d8;
+}
+.viva-aviso {
+  margin-top: 1rem;
+  color: var(--cinza);
+  font-size: 0.78rem;
+}
+@media (max-width: 700px) {
+  .viva-intro,
+  .viva-cards {
+    grid-template-columns: 1fr;
+  }
+  .viva-intro h2 {
+    max-width: 15ch;
+  }
+  .viva-card {
+    min-height: 330px;
+  }
+}
