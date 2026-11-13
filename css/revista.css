@@ -484,3 +484,41 @@ footer .marca { color: var(--verde); }
   .viva-card h3 { font-size: 43px; }
   .viva-card a { min-width: 0; gap: 20px; }
 }
+
+
+/* Central de ingressos e página Avanti */
+.pagina-servico { min-height: 70vh; padding: clamp(38px,6vw,82px) var(--margem) 90px; }
+.servico-cabeca { max-width: 900px; margin-bottom: 34px; }
+.servico-cabeca h1 { margin: 12px 0; font-size: clamp(48px,7vw,92px); }
+.servico-cabeca h1 i { color: var(--verde-medio); }
+.servico-cabeca p:last-child { max-width: 58ch; color: var(--cinza); font-size: 17px; }
+.mapa-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr); gap:22px; align-items:stretch; }
+.mapa-estadio { padding:clamp(18px,3vw,34px); border-radius:24px; background:#e2e9df; border:1px solid #d3dfd2; }
+.mapa-legenda { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:20px; color:#52645a; font-size:.78rem; }
+.campo { position:relative; display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:70px 1fr 70px; gap:10px; min-height:330px; padding:15px; border:2px solid #aabdaf; border-radius:48% / 25%; background:#cbd9c9; }
+.campo::before { content:""; position:absolute; inset:24% 20%; border:2px solid #f7f5ed; border-radius:4px; background:repeating-linear-gradient(90deg,#377c55 0 25%,#438b5e 25% 50%); }
+.campo::after { content:""; position:absolute; left:50%; top:24%; bottom:24%; border-left:2px solid #f7f5ed; }
+.setor { z-index:1; min-height:54px; padding:10px 8px; border:1px solid #0a553b; border-radius:12px; color:white; background:#07563b; font-weight:800; cursor:pointer; transition:.18s; }
+.setor:hover,.setor[aria-pressed="true"] { color:#073b2b; background:#e4c879; transform:scale(1.025); }
+.setor-norte { grid-column:2; grid-row:1; }
+.setor-sul { grid-column:2; grid-row:3; }
+.setor-leste { grid-column:3; grid-row:2; }
+.setor-oeste { grid-column:1; grid-row:2; }
+.mapa-info { padding:25px; border-radius:24px; color:#f7f5ed; background:#063b2b; }
+.mapa-info h2 { margin:10px 0; font-size:35px; }
+.mapa-info p { color:#d5e4d8; }
+.assentos { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:20px; }
+.assento { min-height:38px; border:1px solid #b9d2c0; border-radius:8px; color:#f7f5ed; background:#145b40; cursor:pointer; }
+.assento:hover,.assento[aria-pressed="true"] { color:#173a2a; background:#e4c879; }
+.assento:disabled { opacity:.35; cursor:not-allowed; text-decoration:line-through; }
+.aviso-demo { margin-top:18px; padding:14px 16px; border-left:3px solid #c5a45b; color:#58675e; background:#f0eee4; font-size:.85rem; }
+.avanti-hero { padding:clamp(35px,6vw,75px); border-radius:26px; color:#f7f5ed; background:linear-gradient(120deg,#063b2b,#0e7651); }
+.avanti-hero h1 { max-width:850px; margin:14px 0; font-size:clamp(48px,7vw,90px); }
+.avanti-hero h1 i { color:#c6e0ca; }
+.avanti-hero p { max-width:60ch; color:#e0eee3; }
+.avanti-planos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:28px 0; }
+.avanti-plano { padding:25px; border:1px solid var(--linha); border-radius:20px; background:var(--papel); }
+.avanti-plano h2 { margin:10px 0; font-size:29px; }
+.avanti-plano p { color:var(--cinza); }
+.avanti-link { display:inline-flex; margin-top:24px; padding:14px 20px; border-radius:999px; color:white; background:var(--verde); font-weight:700; text-decoration:none; }
+@media(max-width:760px){.mapa-layout,.avanti-planos{grid-template-columns:1fr}.campo{min-height:280px;grid-template-rows:60px 1fr 60px}.assentos{grid-template-columns:repeat(4,minmax(0,1fr))}}
