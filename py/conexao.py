@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
 from threading import Lock
 
@@ -36,3 +37,21 @@ def conectar():
     banco.execute("PRAGMA foreign_keys = ON")
     banco.row_factory = sqlite3.Row
     return banco
+
+
+@contextmanager
+def abrir():
+    """Abre a conexão, confirma ao final e desfaz tudo se houver erro.
+
+    Sem isso, um INSERT que falha (e-mail repetido, por exemplo) deixa a
+    transação aberta e bloqueia as próximas gravações com "database is locked".
+    """
+    banco = conectar()
+    try:
+        yield banco
+        banco.commit()
+    except BaseException:
+        banco.rollback()
+        raise
+    finally:
+        banco.close()
