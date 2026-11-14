@@ -5,6 +5,7 @@ const titulo = document.getElementById("titulo-setor");
 const instrucao = document.getElementById("instrucao");
 const escolhido = document.getElementById("selecionado");
 const legenda = document.getElementById("legenda-assentos");
+const bilhete = document.getElementById("bilhete");
 const TOTAL_ASSENTOS = 24;
 
 // Ocupação fixa por setor, para o mapa não mudar a cada clique.
@@ -19,7 +20,10 @@ function selecionarAssento(cadeira, setor) {
     a.setAttribute("aria-pressed", String(a === cadeira));
   });
   escolhido.textContent =
-    "Assento demonstrativo " + cadeira.textContent + " · " + setor;
+    "Assento demonstrativo " + cadeira.textContent + ", setor " + setor;
+  document.getElementById("bilhete-setor").textContent = setor;
+  document.getElementById("bilhete-numero").textContent = cadeira.textContent;
+  bilhete.hidden = false;
 }
 
 function mostrarSetor(botao) {
@@ -29,6 +33,7 @@ function mostrarSetor(botao) {
   instrucao.textContent =
     "Assentos ilustrativos deste setor. Escolha um número livre para testar a interação.";
   escolhido.textContent = "";
+  bilhete.hidden = true;
   legenda.hidden = false;
   area.replaceChildren();
   for (let n = 1; n <= TOTAL_ASSENTOS; n++) {

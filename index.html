@@ -4,166 +4,93 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Arquivo Palestra · A história do Palmeiras</title>
-    <meta name="description" content="Arquivo Palestra: história, conquistas, ídolos e galeria do Palmeiras, do Palestra Italia de 1914 aos títulos recentes. Projeto escolar independente." />
-    <meta name="theme-color" content="#064b36" />
+    <meta name="description" content="Do Palestra Italia de 1914 às três Libertadores: a história do Palmeiras contada em datas, placares, ídolos e fotografias. Inclui o cadastro simulado do Sócio Avanti." />
+    <meta name="theme-color" content="#052b1d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:description" content="Arquivo Palestra: história, conquistas, ídolos e galeria do Palmeiras, do Palestra Italia de 1914 aos títulos recentes. Projeto escolar independente." />
     <meta property="og:title" content="Arquivo Palestra · A história do Palmeiras" />
+    <meta property="og:description" content="Do Palestra Italia de 1914 às três Libertadores: a história do Palmeiras contada em datas, placares, ídolos e fotografias. Inclui o cadastro simulado do Sócio Avanti." />
     <link rel="icon" href="docs/img/escudo.svg" />
-    <link rel="stylesheet" href="css/revista.css" />
+    <link rel="preload" href="fonts/inter-display-black.woff" as="font" type="font/woff" crossorigin />
+    <link rel="stylesheet" href="css/estilo.css" />
   </head>
   <body>
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-    <header class="cabecalho">
-      <a class="marca" href="index.html"
-        ><img src="docs/img/escudo.svg" width="40" height="40" alt="" />Arquivo
-        <i>Palestra</i></a
-      >
-      <button id="abrir-menu" aria-controls="menu" aria-expanded="false">
-        Menu ☰
-      </button>
+    <header class="topo topo--foto">
+      <a class="marca" href="index.html"><img src="docs/img/escudo.svg" width="38" height="38" alt="" />Arquivo Palestra</a>
+      <button class="topo__botao" id="abrir-menu" type="button" aria-controls="menu" aria-expanded="false"><span class="rotulo-fechado">Menu</span><span class="rotulo-aberto">Fechar</span></button>
       <nav class="menu" id="menu" aria-label="Principal">
         <a href="pages/historia.html">História</a>
         <a href="pages/conquistas.html">Conquistas</a>
         <a href="pages/idolos.html">Ídolos e elenco</a>
         <a href="pages/galeria.html">Galeria</a>
         <a href="pages/ingressos.html">Ingressos</a>
-        <a href="pages/biblioteca.html">Biblioteca</a>
-        <a href="pages/avanti.html" class="acervo">Sócio Avanti <span aria-hidden="true">↗</span></a>
+        <a class="botao botao--cheio" href="pages/avanti.html">Seja sócio</a>
       </nav>
     </header>
     <main id="conteudo">
-      <section class="capa">
-        <div class="chamada">
-          <p class="rubrica">Sociedade Esportiva Palmeiras</p>
-          <h1>O verde <br />vem de<br /><i>longe.</i></h1>
-          <p class="resumo">
-            De uma reunião em 1914 às vozes do Gol Norte, a história de um clube
-            contada por quem ocupou o campo e a arquibancada.
-          </p>
-          <a class="ler" href="pages/historia.html"
-            >Ler a história <b aria-hidden="true">→</b></a
-          >
-        </div>
-        <figure class="capa-foto">
-          <img
-            src="docs/img/torcida.webp"
-            width="1296"
-            height="972"
-            alt="O Gol Norte na final da Copa do Brasil."
-            fetchpriority="high"
-          />
-          <figcaption>Gol Norte <span>Fotografia de DanteCan</span></figcaption>
-        </figure>
-      </section>
-      <section class="sumario">
-        <div>
-          <p class="rubrica">Nesta edição</p>
-          <h2>Dentro do <i>arquivo.</i></h2>
-        </div>
-        <div>
-          <a href="pages/conquistas.html"
-            ><span>As finais da Libertadores</span
-            ><b aria-hidden="true">↗</b></a
-          ><a href="pages/idolos.html"
-            ><span>Os nomes por trás da camisa</span
-            ><b aria-hidden="true">↗</b></a
-          ><a href="pages/galeria.html"
-            ><span>O estádio em fotografias</span><b aria-hidden="true">↗</b></a
-          >
-        </div>
-      </section>
-      <section class="linha-tempo" aria-labelledby="titulo-tempo">
-        <div class="linha-tempo-topo">
-          <p class="rubrica">Marcos</p>
-          <h2 id="titulo-tempo">Cinco datas que <i>moldaram o clube.</i></h2>
-        </div>
-        <ol>
-          <li>
-            <a href="pages/historia.html">
-              <span class="ano-marco">1914</span>
-              <strong>A fundação</strong>
-              <span>Imigrantes italianos criam o Palestra Italia, na Rua São Bento.</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages/historia.html">
-              <span class="ano-marco">1942</span>
-              <strong>Arrancada Heroica</strong>
-              <span>Estreia do nome Palmeiras: 3 a 1 sobre o São Paulo, no Pacaembu.</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages/conquistas.html">
-              <span class="ano-marco">1999</span>
-              <strong>Libertadores nos pênaltis</strong>
-              <span>Deportivo Cali vencido por 4 a 3, com Marcos no gol.</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages/conquistas.html">
-              <span class="ano-marco">2020</span>
-              <strong>Gol no Maracanã</strong>
-              <span>Breno Lopes decide a final contra o Santos nos acréscimos.</span>
-            </a>
-          </li>
-          <li>
-            <a href="pages/conquistas.html">
-              <span class="ano-marco">2021</span>
-              <strong>Montevidéu</strong>
-              <span>Deyverson decide na prorrogação contra o Flamengo.</span>
-            </a>
-          </li>
-        </ol>
-      </section>
-      <section class="viva" id="viva-palmeiras">
-        <div class="viva-topo">
-          <div>
-            <p class="rubrica">Palmeiras · experiência</p>
-            <h2>O seu lugar é <i>no jogo.</i></h2>
+      <section class="hero escuro">
+        <img class="hero__foto" src="docs/img/torcida.webp" width="1296" height="972" alt="O Gol Norte lotado na final da Copa do Brasil." fetchpriority="high" />
+        <div class="hero__veu"></div>
+        <div class="hero__texto">
+          <h1 class="hero__titulo"><span class="linha"><span>O verde</span></span><span class="linha"><span>vem de</span></span><span class="linha"><span>longe.</span></span></h1>
+          <div class="hero__rodape">
+            <p class="hero__lede">De uma reunião na Rua São Bento, em 1914, às três Libertadores: a história de um clube contada em datas, placares e fotografias.</p>
+            <div class="hero__acoes">
+              <a class="botao botao--claro" href="pages/historia.html">Ler a história</a>
+              <a class="botao botao--contorno" href="pages/avanti.html">Seja sócio Avanti</a>
+            </div>
           </div>
-          <p>Do primeiro apito ao apoio durante toda a temporada: escolha como viver o Palmeiras mais de perto.</p>
+          <p class="hero__legenda" style="margin-top:1.5rem">Gol Norte, fotografia de DanteCan.</p>
         </div>
-
-        <div class="viva-cards">
-          <article class="viva-card ingresso">
-            <div class="viva-card-topo">
-              <span>01</span>
-              <span>Dia de jogo</span>
-            </div>
-            <div class="viva-card-conteudo">
-              <p class="viva-etiqueta">Allianz Parque · São Paulo</p>
-              <h3>Vem pro<br><i>estádio.</i></h3>
-              <p>Consulte os jogos, veja as informações de venda e encontre os canais oficiais de ingressos.</p>
-              <a href="pages/ingressos.html">VER INGRESSOS <b aria-hidden="true">↗</b></a>
-            </div>
-            <span class="viva-card-rodape">SOCIEDADE ESPORTIVA PALMEIRAS</span>
-          </article>
-
-          <article class="viva-card avanti">
-            <div class="viva-card-topo">
-              <span>02</span>
-              <span>Programa de sócio-torcedor</span>
-            </div>
-            <div class="avanti-selo" aria-hidden="true">AVANTI</div>
-            <div class="viva-card-conteudo">
-              <p class="viva-etiqueta">Faça parte</p>
-              <h3>Ser Palmeiras<br>todos os dias.</h3>
-              <p>Conheça os planos, benefícios e vantagens de fazer parte do programa Avanti.</p>
-              <a href="pages/avanti.html">CONHECER O AVANTI <b aria-hidden="true">↗</b></a>
-            </div>
-            <span class="viva-card-rodape">MAIS PERTO DO VERDÃO</span>
-          </article>
-        </div>
-        <p class="viva-aviso">Informações sobre ingressos, planos e disponibilidade nos canais oficiais do Palmeiras.</p>
       </section>
+      <div class="faixa faixa--animada" role="region" aria-label="Fatos do clube"><ul class="faixa__trilho"><li><b>26 ago 1914</b> Fundação do Palestra Italia</li><li><b>20 set 1942</b> Arrancada Heroica no Pacaembu</li><li><b>1999, 2020 e 2021</b> Libertadores conquistadas</li><li><b>2014</b> Inauguração do Allianz Parque</li><li aria-hidden="true"><b>26 ago 1914</b> Fundação do Palestra Italia</li><li aria-hidden="true"><b>20 set 1942</b> Arrancada Heroica no Pacaembu</li><li aria-hidden="true"><b>1999, 2020 e 2021</b> Libertadores conquistadas</li><li aria-hidden="true"><b>2014</b> Inauguração do Allianz Parque</li><li aria-hidden="true"><b>26 ago 1914</b> Fundação do Palestra Italia</li><li aria-hidden="true"><b>20 set 1942</b> Arrancada Heroica no Pacaembu</li><li aria-hidden="true"><b>1999, 2020 e 2021</b> Libertadores conquistadas</li><li aria-hidden="true"><b>2014</b> Inauguração do Allianz Parque</li><li><b>26 ago 1914</b> Fundação do Palestra Italia</li><li><b>20 set 1942</b> Arrancada Heroica no Pacaembu</li><li><b>1999, 2020 e 2021</b> Libertadores conquistadas</li><li><b>2014</b> Inauguração do Allianz Parque</li></ul></div>
+      <section class="tempo" aria-labelledby="titulo-tempo">
+        <div class="tempo__lateral">
+          <h2 id="titulo-tempo">Cinco datas que moldaram o clube</h2>
+          <p>Da fundação à última taça continental, o caminho em marcos.</p>
+        </div>
+        <ol class="tempo__lista"><li><a href="pages/historia.html"><span class="tempo__ano">1914</span><span class="tempo__texto"><strong>A fundação</strong><span>Imigrantes italianos criam o Palestra Italia, na Rua São Bento.</span></span></a></li><li><a href="pages/historia.html"><span class="tempo__ano">1942</span><span class="tempo__texto"><strong>Arrancada Heroica</strong><span>Estreia do nome Palmeiras: 3 a 1 sobre o São Paulo, no Pacaembu.</span></span></a></li><li><a href="pages/conquistas.html"><span class="tempo__ano">1999</span><span class="tempo__texto"><strong>Libertadores nos pênaltis</strong><span>Deportivo Cali vencido por 4 a 3, com Marcos no gol.</span></span></a></li><li><a href="pages/conquistas.html"><span class="tempo__ano">2020</span><span class="tempo__texto"><strong>Gol no Maracanã</strong><span>Breno Lopes decide a final contra o Santos nos acréscimos.</span></span></a></li><li><a href="pages/conquistas.html"><span class="tempo__ano">2021</span><span class="tempo__texto"><strong>Montevidéu</strong><span>Deyverson decide na prorrogação contra o Flamengo.</span></span></a></li></ol>
+      </section>
+      <section class="mosaico" aria-labelledby="titulo-mosaico">
+        <h2 class="mosaico__titulo" id="titulo-mosaico">Dentro do arquivo</h2>
+        <div class="mosaico__grade">
+          <a class="peca peca--grande peca--foto" href="pages/conquistas.html"><img src="docs/img/taca.webp" width="1500" height="844" alt="" loading="lazy" /><h3>As conquistas</h3><p>Três finais de Libertadores: 2–1, 1–0 e 2–1.</p></a>
+          <a class="peca peca--media peca--foto" href="pages/galeria.html"><img src="docs/img/arena.webp" width="1280" height="960" alt="" loading="lazy" /><h3>O estádio em fotografias</h3><p>Da geral ao gramado.</p></a>
+          <a class="peca peca--media peca--nomes" href="pages/idolos.html"><span class="peca__nomes" aria-hidden="true"><span>Ademir da Guia</span><span>Marcos</span><span>Gustavo Gómez</span></span><div><h3>Os nomes por trás da camisa</h3></div></a>
+        </div>
+      </section>
+      <section class="socio escuro" aria-labelledby="titulo-socio">
+        <div class="socio__grade">
+          <div class="socio__texto">
+            <h2 id="titulo-socio">Sua carteirinha de sócio, em um minuto</h2>
+            <p>Escolha um plano, preencha três campos e receba o número da carteirinha. Depois é só consultar ou cancelar quando quiser.</p>
+            <a class="botao botao--claro" href="pages/avanti.html">Quero ser sócio</a>
+          </div>
+          <div class="socio__palco">
+            <div class="carteirinha carteirinha--vazia" data-carteirinha>
+            <div class="carteirinha__topo"><img src="docs/img/escudo.svg" width="34" height="34" alt="" /><span>Sócio Avanti</span></div>
+            <p class="carteirinha__nome">Seu nome aqui</p>
+            <dl class="carteirinha__dados"><div><dt>Plano</dt><dd>A escolher</dd></div><div><dt>Desde</dt><dd>Hoje</dd></div></dl>
+            <div class="carteirinha__rodape"><p class="carteirinha__numero">AV-0000-000000</p><span class="carteirinha__barras" aria-hidden="true"></span></div>
+            <span class="carteirinha__selo">Cancelada</span>
+          </div>
+          </div>
+        </div>
+      </section>
+      <div class="bilhete-faixa">
+        <a class="bilhete" href="pages/ingressos.html">
+          <div class="bilhete__corpo"><h3>Escolha seu setor</h3><p>Um mapa ilustrativo do Allianz Parque para testar como é escolher um lugar no estádio.</p></div>
+          <div class="bilhete__canhoto"><small>Setores</small><span class="bilhete__numero">4</span></div>
+        </a>
+      </div>
     </main>
-    <footer>
-      <a class="marca" href="index.html">Arquivo <i>Palestra</i></a>
-      <nav class="rodape-nav" aria-label="Rodapé"><a href="pages/historia.html">História</a><a href="pages/conquistas.html">Conquistas</a><a href="pages/idolos.html">Ídolos e elenco</a><a href="pages/galeria.html">Galeria</a><a href="pages/ingressos.html">Ingressos</a><a href="pages/biblioteca.html">Biblioteca</a></nav>
-      <span>Projeto escolar independente</span>
-      <a href="docs/creditos.html">Créditos e fontes ↗</a>
+    <footer class="rodape escuro">
+      <div class="rodape__topo">
+        <p class="rodape__texto">Projeto escolar independente sobre a história do Palmeiras. Não é um site oficial do clube, e o Sócio Avanti daqui é uma simulação feita para estudo.</p>
+        <nav class="rodape__nav" aria-label="Rodapé"><a href="pages/historia.html">História</a><a href="pages/conquistas.html">Conquistas</a><a href="pages/idolos.html">Ídolos e elenco</a><a href="pages/galeria.html">Galeria</a><a href="pages/ingressos.html">Ingressos</a><a href="pages/avanti.html">Sócio Avanti</a><a href="docs/creditos.html">Créditos e fontes</a></nav>
+      </div>
+      <p class="rodape__marca" aria-hidden="true">Palestra</p>
     </footer>
     <script src="js/navegacao.js" defer></script>
   </body>

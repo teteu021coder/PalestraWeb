@@ -5,97 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>História · Arquivo Palestra</title>
     <meta name="description" content="Do Palestra Italia de 1914 à Arrancada Heroica de 1942: a origem do Palmeiras contada em duas datas." />
-    <meta name="theme-color" content="#064b36" />
+    <meta name="theme-color" content="#052b1d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:description" content="Do Palestra Italia de 1914 à Arrancada Heroica de 1942: a origem do Palmeiras contada em duas datas." />
     <meta property="og:title" content="História · Arquivo Palestra" />
+    <meta property="og:description" content="Do Palestra Italia de 1914 à Arrancada Heroica de 1942: a origem do Palmeiras contada em duas datas." />
     <link rel="icon" href="../docs/img/escudo.svg" />
-    <link rel="stylesheet" href="../css/revista.css" />
+    <link rel="preload" href="../fonts/inter-display-black.woff" as="font" type="font/woff" crossorigin />
+    <link rel="stylesheet" href="../css/estilo.css" />
   </head>
   <body>
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-    <header class="cabecalho">
-      <a class="marca" href="../index.html"
-        ><img
-          src="../docs/img/escudo.svg"
-          width="40"
-          height="40"
-          alt=""
-        />Arquivo <i>Palestra</i></a
-      >
-      <button id="abrir-menu" aria-controls="menu" aria-expanded="false">
-        Menu ☰
-      </button>
+    <header class="topo">
+      <a class="marca" href="../index.html"><img src="../docs/img/escudo.svg" width="38" height="38" alt="" />Arquivo Palestra</a>
+      <button class="topo__botao" id="abrir-menu" type="button" aria-controls="menu" aria-expanded="false"><span class="rotulo-fechado">Menu</span><span class="rotulo-aberto">Fechar</span></button>
       <nav class="menu" id="menu" aria-label="Principal">
         <a href="../pages/historia.html" aria-current="page">História</a>
         <a href="../pages/conquistas.html">Conquistas</a>
         <a href="../pages/idolos.html">Ídolos e elenco</a>
         <a href="../pages/galeria.html">Galeria</a>
         <a href="../pages/ingressos.html">Ingressos</a>
-        <a href="../pages/biblioteca.html">Biblioteca</a>
-        <a href="../pages/avanti.html" class="acervo">Sócio Avanti <span aria-hidden="true">↗</span></a>
+        <a class="botao botao--cheio" href="../pages/avanti.html">Seja sócio</a>
       </nav>
     </header>
-    <main id="conteudo" class="reportagem miolo">
-      <header class="abertura">
-        <p class="rubrica">História do clube</p>
-        <h1>Antes de ser <i>Palmeiras.</i></h1>
-        <p class="linha-fina">
-          Uma reunião no centro de São Paulo e uma tarde no Pacaembu dão as duas
-          datas de nascimento de um mesmo clube.
-        </p>
+    <main id="conteudo">
+      <header class="cabeca">
+        <p class="meta">História do clube</p>
+        <h1>Antes de ser Palmeiras</h1>
+        <p class="cabeca__lede">Uma reunião no centro de São Paulo e uma tarde no Pacaembu dão as duas datas de nascimento de um mesmo clube.</p>
+        <span class="gramado" aria-hidden="true"></span>
       </header>
-      <figure>
-        <img
-          src="../docs/img/parque.webp"
-          width="1600"
-          height="576"
-          alt="O antigo Parque Antarctica visto de cima."
-          fetchpriority="high"
-        />
-        <figcaption>
-          O antigo Parque Antarctica visto de cima.
-          <span>Acervo S.E. Palmeiras</span>
-        </figcaption>
+      <figure class="destaque">
+        <img src="../docs/img/parque.webp" width="1600" height="576" alt="O antigo Parque Antarctica visto de cima." fetchpriority="high" />
+        <figcaption>O antigo Parque Antarctica visto de cima. <span>Acervo S.E. Palmeiras</span></figcaption>
       </figure>
       <section class="cronica">
-        <div class="ano">1914</div>
-        <div>
-          <p class="rubrica">26 de agosto · São Paulo</p>
+        <div class="cronica__ano">1914</div>
+        <div class="cronica__corpo">
+          <p class="meta">26 de agosto, São Paulo</p>
           <h2>Um time para a colônia</h2>
-          <p>
-            Na Rua São Bento, imigrantes italianos se reuniram para fundar o
-            Palestra Italia. Queriam ver a comunidade italiana representada no
-            futebol paulista. O nome atravessou as primeiras conquistas e ficou
-            ligado ao campo do Parque Antarctica.
-          </p>
+          <p>Na Rua São Bento, imigrantes italianos se reuniram para fundar o Palestra Italia. Queriam ver a comunidade italiana representada no futebol paulista. O nome atravessou as primeiras conquistas e ficou ligado ao campo do Parque Antarctica.</p>
         </div>
       </section>
       <section class="cronica">
-        <div class="ano">1942</div>
-        <div>
-          <p class="rubrica">20 de setembro · Pacaembu</p>
+        <div class="cronica__ano">1942</div>
+        <div class="cronica__corpo">
+          <p class="meta">20 de setembro, Pacaembu</p>
           <h2>A Arrancada Heroica</h2>
-          <p>
-            Com o Brasil em guerra contra a Itália, o clube sofreu pressão para
-            abandonar a referência à origem italiana. Uma semana depois de jogar
-            como Palestra de São Paulo, a equipe entrou no Pacaembu carregando a
-            bandeira brasileira.
-          </p>
-          <p>
-            Na estreia do nome Palmeiras, Cláudio, Del Nero e Echevarrieta
-            fizeram os gols do 3 a 1 sobre o São Paulo. A nova camisa já saía de
-            campo campeã paulista.
-          </p>
+          <p>Com o Brasil em guerra contra a Itália, o clube sofreu pressão para abandonar a referência à origem italiana. Uma semana depois de jogar como Palestra de São Paulo, a equipe entrou no Pacaembu carregando a bandeira brasileira.</p>
+          <p>Na estreia do nome Palmeiras, Cláudio, Del Nero e Echevarrieta fizeram os gols do 3 a 1 sobre o São Paulo. A nova camisa já saía de campo campeã paulista.</p>
         </div>
       </section>
     </main>
-    <footer>
-      <a class="marca" href="../index.html">Arquivo <i>Palestra</i></a>
-      <nav class="rodape-nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/biblioteca.html">Biblioteca</a></nav>
-      <span>Projeto escolar independente</span>
-      <a href="../docs/creditos.html">Créditos e fontes ↗</a>
+    <footer class="rodape escuro">
+      <div class="rodape__topo">
+        <p class="rodape__texto">Projeto escolar independente sobre a história do Palmeiras. Não é um site oficial do clube, e o Sócio Avanti daqui é uma simulação feita para estudo.</p>
+        <nav class="rodape__nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/avanti.html">Sócio Avanti</a><a href="../docs/creditos.html">Créditos e fontes</a></nav>
+      </div>
+      <p class="rodape__marca" aria-hidden="true">Palestra</p>
     </footer>
     <script src="../js/navegacao.js" defer></script>
   </body>
