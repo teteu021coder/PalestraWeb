@@ -1,12 +1,28 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ingressos · Arquivo Palestra</title><link rel="icon" href="../docs/img/escudo.svg"><link rel="stylesheet" href="../css/revista.css"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ingressos · Arquivo Palestra</title>
+    <meta name="description" content="Mapa esquemático do Allianz Parque com seleção demonstrativa de setor e assento e link para a venda oficial." />
+    <meta name="theme-color" content="#064b36" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:description" content="Mapa esquemático do Allianz Parque com seleção demonstrativa de setor e assento e link para a venda oficial." />
+    <meta property="og:title" content="Ingressos · Arquivo Palestra" /><link rel="icon" href="../docs/img/escudo.svg"><link rel="stylesheet" href="../css/revista.css"></head>
 <body><a class="pular" href="#conteudo">Pular para o conteúdo</a>
-<header class="cabecalho"><a class="marca" href="../index.html"><img src="../docs/img/escudo.svg" width="40" height="40" alt="">Arquivo <i>Palestra</i></a><button id="abrir-menu" aria-controls="menu" aria-expanded="false">Menu ☰</button><nav class="menu" id="menu"><a href="../index.html">Início</a><a href="historia.html">História</a><a href="conquistas.html">Conquistas</a><a href="avanti.html" class="acervo">Sócio Avanti ↗</a></nav></header>
+<header class="cabecalho"><a class="marca" href="../index.html"><img src="../docs/img/escudo.svg" width="40" height="40" alt="">Arquivo <i>Palestra</i></a><button id="abrir-menu" aria-controls="menu" aria-expanded="false">Menu ☰</button><nav class="menu" id="menu" aria-label="Principal">
+        <a href="../pages/historia.html">História</a>
+        <a href="../pages/conquistas.html">Conquistas</a>
+        <a href="../pages/idolos.html">Ídolos e elenco</a>
+        <a href="../pages/galeria.html">Galeria</a>
+        <a href="../pages/ingressos.html" aria-current="page">Ingressos</a>
+        <a href="../pages/biblioteca.html">Biblioteca</a>
+        <a href="../pages/avanti.html" class="acervo">Sócio Avanti <span aria-hidden="true">↗</span></a>
+      </nav></header>
 <main id="conteudo" class="pagina-servico"><div class="servico-cabeca"><p class="rubrica">Allianz Parque · dia de jogo</p><h1>Escolha seu <i>setor.</i></h1><p>Explore o mapa ilustrativo do estádio. Selecione um setor para visualizar assentos demonstrativos e entender como a experiência interativa funciona.</p></div>
 <div class="mapa-layout"><section class="mapa-estadio" aria-label="Mapa esquemático do estádio"><div class="mapa-legenda"><span>MAPA ESQUEMÁTICO</span><span>CAMPO NO CENTRO</span></div><div class="campo"><button class="setor setor-norte" data-setor="Gol Norte">GOL NORTE</button><button class="setor setor-sul" data-setor="Gol Sul">GOL SUL</button><button class="setor setor-leste" data-setor="Leste">LESTE</button><button class="setor setor-oeste" data-setor="Oeste">OESTE</button></div><p class="aviso-demo">Este desenho é uma representação simplificada, não é a planta oficial nem mostra a numeração real das cadeiras.</p></section>
-<aside class="mapa-info"><p class="rubrica">SELEÇÃO DE LUGAR · DEMONSTRAÇÃO</p><h2 id="titulo-setor">Escolha um setor</h2><p id="instrucao">Toque em Gol Norte, Gol Sul, Leste ou Oeste no mapa para exibir os assentos ilustrativos.</p><div id="assentos" class="assentos" aria-live="polite"></div><p id="selecionado" style="margin-top:16px;font-weight:700"></p><a class="avanti-link" href="https://www.palmeiras.com.br/ingressos" target="_blank" rel="noopener noreferrer">ACESSAR VENDA OFICIAL ↗</a></aside></div>
-</main><footer><a class="marca" href="../index.html">Arquivo <i>Palestra</i></a><span>Projeto escolar independente</span><a href="avanti.html">Conheça o Avanti ↗</a></footer>
-<script src="../js/navegacao.js" defer></script><script>
-const botoes=document.querySelectorAll('.setor'), area=document.getElementById('assentos'), titulo=document.getElementById('titulo-setor'), instrucao=document.getElementById('instrucao'), escolhido=document.getElementById('selecionado');
-botoes.forEach(botao=>botao.addEventListener('click',()=>{botoes.forEach(b=>b.setAttribute('aria-pressed',String(b===botao)));titulo.textContent=botao.dataset.setor;instrucao.textContent='Assentos ilustrativos deste setor. Escolha um número para testar a interação.';escolhido.textContent='';area.replaceChildren();for(let n=1;n<=24;n++){const cadeira=document.createElement('button');cadeira.className='assento';cadeira.textContent=n;cadeira.type='button';cadeira.setAttribute('aria-pressed','false');cadeira.addEventListener('click',()=>{area.querySelectorAll('.assento').forEach(a=>a.setAttribute('aria-pressed',String(a===cadeira)));escolhido.textContent='Assento demonstrativo '+n+' · '+botao.dataset.setor;});area.append(cadeira);}}));
-</script></body></html>
+<aside class="mapa-info"><p class="rubrica">SELEÇÃO DE LUGAR · DEMONSTRAÇÃO</p><h2 id="titulo-setor">Escolha um setor</h2><p id="instrucao">Toque em Gol Norte, Gol Sul, Leste ou Oeste no mapa para exibir os assentos ilustrativos.</p><div id="assentos" class="assentos"></div><ul id="legenda-assentos" class="legenda-assentos" hidden><li><i class="livre"></i>Livre</li><li><i class="marcado"></i>Selecionado</li><li><i class="indisponivel"></i>Ocupado</li></ul><p id="selecionado" class="assento-escolhido" aria-live="polite"></p><a class="avanti-link" href="https://www.palmeiras.com.br/ingressos" target="_blank" rel="noopener noreferrer">ACESSAR VENDA OFICIAL ↗</a></aside></div>
+</main><footer>
+      <a class="marca" href="../index.html">Arquivo <i>Palestra</i></a>
+      <nav class="rodape-nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/biblioteca.html">Biblioteca</a></nav>
+      <span>Projeto escolar independente</span>
+      <a href="../docs/creditos.html">Créditos e fontes ↗</a>
+    </footer>
+<script src="../js/navegacao.js" defer></script><script src="../js/ingressos.js" defer></script></body></html>
