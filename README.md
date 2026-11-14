@@ -1,50 +1,37 @@
-# Arquivo Palestra · Projeto Integrado (DWS + POO + BD)
+# Arquivo Palestra
 
-Site editorial sobre a história do Palmeiras, com um sistema de **Biblioteca Aurora**
-(livros, autores, usuários e empréstimos) integrado de ponta a ponta:
-**HTML/CSS/JS (Fetch) → rotas Flask → DAOs → SQLite**.
+Site sobre a história do Palmeiras, com uma aba de **Sócio Avanti** ligada a um back-end em Flask e a um banco SQLite. Projeto Integrado de DWS, POO e Banco de Dados. Não é um site oficial do clube.
 
-## Como rodar (modo completo, com Flask e banco)
+## Como rodar
 
 ```bash
 pip install -r py/requirements.txt
 python py/app.py
 ```
 
-Abra <http://127.0.0.1:5000>. A página **Biblioteca** passa a usar a API
-(`/api/autores`, `/api/livros`, `/api/usuarios`, `/api/emprestimos`) e mostra
-"Conectado ao SQLite". O banco `py/banco/aurora.db` é criado na primeira execução
-a partir de `py/sql/schema.sql` e `py/sql/dados.sql`.
+Abra <http://127.0.0.1:5000>. O Flask serve o site e a API no mesmo endereço, e o banco (`py/banco/avanti.db`) é criado na primeira execução. Para outra porta: `PORT=8000 python py/app.py`.
 
-Variáveis opcionais: `PORT` (porta), `DB_PATH` (arquivo do banco), `CORS_ORIGINS`.
+> O GitHub Pages só hospeda arquivos estáticos. O cadastro do Avanti precisa do Flask rodando.
 
-## Modo estático (GitHub Pages)
+## Testes
 
-Sem o Flask, `js/modo.js` define `usarAPI = false` e a biblioteca grava no
-`localStorage` do navegador. O restante do site funciona igual.
+```bash
+python py/test_api.py -v
+```
 
-## Estrutura
+## Como as camadas se encontram
 
-| Pasta | Conteúdo |
+| Camada | Onde |
 | --- | --- |
-| `index.html`, `pages/` | Capa, história, conquistas, ídolos, galeria, ingressos, Avanti e biblioteca |
-| `css/` | `revista.css` (identidade visual) e `biblioteca.css` (sistema da biblioteca) |
-| `js/` | Navegação, galeria, mapa de ingressos e a camada da biblioteca (`dados.js` faz o Fetch) |
-| `py/` | `app.py` (rotas Flask), `dao.py`, `modelos.py`, `conexao.py` e `sql/` |
-| `docs/` | Modelagem (conceitual, lógica, física), diagrama de classes, imagens e créditos |
+| Front-end (HTML, CSS, JS com `fetch`) | `index.html`, `pages/`, `css/`, `js/` |
+| Rotas Flask | `py/app.py` |
+| Classes e validações (POO) | `py/modelos.py` |
+| Acesso ao banco (DAOs) | `py/dao.py`, `py/conexao.py` |
+| Banco de dados | `py/sql/schema.sql`, `py/sql/dados.sql` |
+| Modelagem e rotas | `docs/modelagem.md` |
 
-## Rotas da API
+## Páginas
 
-| Método | Rota | Ação |
-| --- | --- | --- |
-| GET / POST | `/api/autores`, `/api/livros`, `/api/usuarios`, `/api/emprestimos` | Listar / cadastrar |
-| DELETE | `/api/<grupo>/<id>` | Excluir (409 se houver registros vinculados) |
-| GET | `/api/health` | Verificar o servidor |
+História, Conquistas, Ídolos e elenco, Galeria, Ingressos (mapa ilustrativo) e Sócio Avanti (cadastro, consulta e cancelamento de carteirinha).
 
-O empréstimo registra a saída e baixa um exemplar na mesma transação; excluir o
-empréstimo repõe o exemplar.
-
-## Créditos
-
-Procedência das imagens e fontes de consulta em `docs/creditos.html`.
-Projeto escolar independente, sem vínculo oficial com o clube.
+Créditos de imagens, fontes tipográficas e referências em `docs/creditos.html`.
