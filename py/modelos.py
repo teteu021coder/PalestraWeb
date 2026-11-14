@@ -1,65 +1,93 @@
-class Autor:
-    def __init__(self, nome, nacionalidade=None, id_autor=None):
-        self.id_autor = id_autor
+import re
+
+EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$")
+
+
+class Conflito(Exception):
+    """A regra de negócio impede a operação (ex.: e-mail com adesão ativa)."""
+
+
+class Plano:
+    def __init__(self, nome, resumo, valor_mensal, beneficios, id_plano=None):
+        self.id_plano = id_plano
         self.nome = nome
-        self.nacionalidade = nacionalidade
+        self.resumo = resumo
+        self.valor_mensal = valor_mensal
+        # No banco os benefícios ficam em um texto separado por ponto e vírgula.
+        self.beneficios = [item for item in beneficios.split(";") if item]
 
     def para_dict(self):
         return {
-            "id_autor": self.id_autor,
+            "id_plano": self.id_plano,
             "nome": self.nome,
-            "nacionalidade": self.nacionalidade
+            "resumo": self.resumo,
+            "valor_mensal": self.valor_mensal,
+            "beneficios": self.beneficios,
         }
 
 
-class Livro:
-    def __init__(self, titulo, ano_publicacao, quantidade, id_autor, id_livro=None):
-        self.id_livro = id_livro
-        self.titulo = titulo
-        self.ano_publicacao = ano_publicacao
-        self.quantidade = quantidade
-        self.id_autor = id_autor
-
-    def para_dict(self):
-        return {
-            "id_livro": self.id_livro,
-            "titulo": self.titulo,
-            "ano_publicacao": self.ano_publicacao,
-            "quantidade": self.quantidade,
-            "id_autor": self.id_autor
-        }
-
-
-class Usuario:
-    def __init__(self, nome, email, telefone=None, id_usuario=None):
-        self.id_usuario = id_usuario
+class Socio:
+    def __init__(self, nome, email, telefone=None, id_socio=None):
+        self.id_socio = id_socio
         self.nome = nome
         self.email = email
         self.telefone = telefone
 
+    @property
+    def nome(self):
+        return self._nome
+
+    @nome.setter
+    def nome(self, valor):
+        valor = " ".join(str(valor or "").split())
+        if not 3 <= len(valor) <= 80:
+            raise ValueError("Informe o nome completo, com 3 a 80 caracteres.")
+        self._nome = valor
+
+    @property
+    def email(self):
+        return self._email
+
+    @email.setter
+    def email(self, valor):
+        valor = str(valor or "").strip().lower()
+        if len(valor) > 120 or not EMAIL.match(valor):
+            raise ValueError("Informe um e-mail válido, como nome@exemplo.com.")
+        self._email = valor
+
+    @property
+    def telefone(self):
+        return self._telefone
+
+    @telefone.setter
+    def telefone(self, valor):
+        digitos = re.sub(r"\D", "", str(valor or ""))
+        if digitos and len(digitos) not in (10, 11):
+            raise ValueError("O telefone precisa ter DDD e 8 ou 9 dígitos.")
+        self._telefone = digitos or None
+
     def para_dict(self):
-        return {
-            "id_usuario": self.id_usuario,
-            "nome": self.nome,
-            "email": self.email,
-            "telefone": self.telefone
-        }
+        return {"id_socio": self.id_socio, "nome": self.nome, "telefone": self.telefone}
 
 
-class Emprestimo:
-    def __init__(self, data_emprestimo, id_usuario, id_livro,
-                 data_devolucao=None, id_emprestimo=None):
-        self.id_emprestimo = id_emprestimo
-        self.data_emprestimo = data_emprestimo
-        self.data_devolucao = data_devolucao
-        self.id_usuario = id_usuario
-        self.id_livro = id_livro
+class Adesao:
+    def __init__(self, socio, plano, data_adesao, carteirinha=None, status="ativa",
+                 data_cancelamento=None, id_adesao=None):
+        self.id_adesao = id_adesao
+        self.socio = socio
+        self.plano = plano
+        self.data_adesao = data_adesao
+        self.carteirinha = carteirinha
+        self.status = status
+        self.data_cancelamento = data_cancelamento
 
     def para_dict(self):
+        # O e-mail não volta na resposta: quem consulta já o conhece.
         return {
-            "id_emprestimo": self.id_emprestimo,
-            "data_emprestimo": self.data_emprestimo,
-            "data_devolucao": self.data_devolucao,
-            "id_usuario": self.id_usuario,
-            "id_livro": self.id_livro
+            "carteirinha": self.carteirinha,
+            "nome": self.socio.nome,
+            "status": self.status,
+            "data_adesao": self.data_adesao,
+            "data_cancelamento": self.data_cancelamento,
+            "plano": self.plano.para_dict(),
         }

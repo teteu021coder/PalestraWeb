@@ -1,142 +1,122 @@
+from datetime import date
+
 from conexao import abrir
-from modelos import Autor, Livro, Usuario, Emprestimo
+from modelos import Adesao, Conflito, Plano, Socio
 
 
-class AuroraDAO:
-    """O DAO concentra o SQL. As rotas lidam com pedidos HTTP."""
+def _plano(linha):
+    return Plano(linha["plano_nome"], linha["plano_resumo"], linha["plano_valor"],
+                 linha["plano_beneficios"], linha["id_plano"])
 
-    # AUTOR
-    def cadastrar_autor(self, autor):
-        with abrir() as conexao:
-            cursor = conexao.execute(
-                "INSERT INTO autor (nome, nacionalidade) VALUES (?, ?)",
-                (autor.nome, autor.nacionalidade)
-            )
-            autor.id_autor = cursor.lastrowid
-        return autor
 
-    def listar_autores(self):
-        with abrir() as conexao:
-            linhas = conexao.execute(
-                "SELECT * FROM autor ORDER BY nome"
-            ).fetchall()
-        return [Autor(linha["nome"], linha["nacionalidade"], linha["id_autor"])
-                for linha in linhas]
+def _adesao(linha):
+    socio = Socio(linha["nome"], linha["email"], linha["telefone"], linha["id_socio"])
+    return Adesao(socio, _plano(linha), linha["data_adesao"], linha["carteirinha"],
+                  linha["status"], linha["data_cancelamento"], linha["id_adesao"])
 
-    # LIVRO
-    def cadastrar_livro(self, livro):
-        with abrir() as conexao:
-            cursor = conexao.execute(
-                """INSERT INTO livro (titulo, ano_publicacao, quantidade, id_autor)
-                   VALUES (?, ?, ?, ?)""",
-                (livro.titulo, livro.ano_publicacao, livro.quantidade, livro.id_autor)
-            )
-            livro.id_livro = cursor.lastrowid
-        return livro
 
-    def listar_livros(self):
+# Junta adesão, sócio e plano. Os nomes das colunas do plano ganham prefixo.
+CONSULTA_ADESAO = """
+    SELECT adesao.*, socio.nome, socio.email, socio.telefone,
+           plano.nome AS plano_nome, plano.resumo AS plano_resumo,
+           plano.valor_mensal AS plano_valor, plano.beneficios AS plano_beneficios
+    FROM adesao
+    JOIN socio ON adesao.id_socio = socio.id_socio
+    JOIN plano ON adesao.id_plano = plano.id_plano
+"""
+
+
+class PlanoDAO:
+    def listar(self):
         with abrir() as conexao:
             linhas = conexao.execute(
-                """SELECT livro.*, autor.nome AS nome_autor
-                   FROM livro JOIN autor ON livro.id_autor = autor.id_autor
-                   ORDER BY livro.titulo"""
+                "SELECT id_plano, nome AS plano_nome, resumo AS plano_resumo,"
+                " valor_mensal AS plano_valor, beneficios AS plano_beneficios"
+                " FROM plano ORDER BY valor_mensal"
             ).fetchall()
-        resultado = []
-        for linha in linhas:
-            livro = Livro(linha["titulo"], linha["ano_publicacao"],
-                          linha["quantidade"], linha["id_autor"], linha["id_livro"])
-            dados = livro.para_dict()
-            dados["nome_autor"] = linha["nome_autor"]
-            resultado.append(dados)
-        return resultado
+        return [_plano(linha) for linha in linhas]
 
-    # USUARIO
-    def cadastrar_usuario(self, usuario):
-        with abrir() as conexao:
-            cursor = conexao.execute(
-                "INSERT INTO usuario (nome, email, telefone) VALUES (?, ?, ?)",
-                (usuario.nome, usuario.email, usuario.telefone)
-            )
-            usuario.id_usuario = cursor.lastrowid
-        return usuario
 
-    def listar_usuarios(self):
+class AdesaoDAO:
+    def aderir(self, socio, id_plano):
+        """Cria (ou reaproveita) o sócio e registra a adesão na mesma transação."""
         with abrir() as conexao:
-            linhas = conexao.execute(
-                "SELECT * FROM usuario ORDER BY nome"
-            ).fetchall()
-        return [Usuario(linha["nome"], linha["email"], linha["telefone"],
-                        linha["id_usuario"]).para_dict() for linha in linhas]
-
-    # EMPRESTIMO
-    def cadastrar_emprestimo(self, emprestimo):
-        with abrir() as conexao:
-            # Reserve a escrita antes de conferir o estoque do livro.
+            # Reserva a escrita antes de conferir as regras.
             conexao.execute("BEGIN IMMEDIATE")
-            livro = conexao.execute(
-                "SELECT quantidade FROM livro WHERE id_livro = ?",
-                (emprestimo.id_livro,)
-            ).fetchone()
-            if livro is None:
-                raise ValueError("Livro não encontrado.")
-            if livro["quantidade"] <= 0:
-                raise ValueError("Não há exemplares disponíveis desse livro.")
+            if conexao.execute("SELECT 1 FROM plano WHERE id_plano = ?",
+                               (id_plano,)).fetchone() is None:
+                raise LookupError("Esse plano não existe. Escolha um dos planos da lista.")
 
-            usuario = conexao.execute(
-                "SELECT id_usuario FROM usuario WHERE id_usuario = ?",
-                (emprestimo.id_usuario,)
+            existente = conexao.execute(
+                "SELECT id_socio FROM socio WHERE email = ?", (socio.email,)
             ).fetchone()
-            if usuario is None:
-                raise ValueError("Usuário não encontrado.")
+            if existente:
+                socio.id_socio = existente["id_socio"]
+                ativa = conexao.execute(
+                    "SELECT carteirinha FROM adesao WHERE id_socio = ? AND status = 'ativa'",
+                    (socio.id_socio,)
+                ).fetchone()
+                if ativa:
+                    raise Conflito("Este e-mail já tem uma adesão ativa. "
+                                   "Consulte a carteirinha ou cancele a atual.")
+                conexao.execute("UPDATE socio SET nome = ?, telefone = ? WHERE id_socio = ?",
+                                (socio.nome, socio.telefone, socio.id_socio))
+            else:
+                cursor = conexao.execute(
+                    "INSERT INTO socio (nome, email, telefone) VALUES (?, ?, ?)",
+                    (socio.nome, socio.email, socio.telefone))
+                socio.id_socio = cursor.lastrowid
 
+            hoje = date.today()
             cursor = conexao.execute(
-                """INSERT INTO emprestimo
-                   (data_emprestimo, data_devolucao, id_usuario, id_livro)
-                   VALUES (?, ?, ?, ?)""",
-                (emprestimo.data_emprestimo, emprestimo.data_devolucao,
-                 emprestimo.id_usuario, emprestimo.id_livro)
-            )
-            conexao.execute(
-                "UPDATE livro SET quantidade = quantidade - 1 WHERE id_livro = ?",
-                (emprestimo.id_livro,)
-            )
-            emprestimo.id_emprestimo = cursor.lastrowid
-        return emprestimo
+                "INSERT INTO adesao (data_adesao, id_socio, id_plano) VALUES (?, ?, ?)",
+                (hoje.isoformat(), socio.id_socio, id_plano))
+            carteirinha = f"AV-{hoje.year}-{cursor.lastrowid:06d}"
+            conexao.execute("UPDATE adesao SET carteirinha = ? WHERE id_adesao = ?",
+                            (carteirinha, cursor.lastrowid))
+            linha = conexao.execute(
+                CONSULTA_ADESAO + " WHERE adesao.id_adesao = ?", (cursor.lastrowid,)
+            ).fetchone()
+        return _adesao(linha)
 
-    def listar_emprestimos(self):
+    def consultar(self, carteirinha, email):
+        with abrir() as conexao:
+            linha = conexao.execute(
+                CONSULTA_ADESAO + " WHERE adesao.carteirinha = ? AND socio.email = ?",
+                (carteirinha, email)
+            ).fetchone()
+        return _adesao(linha) if linha else None
+
+    def cancelar(self, carteirinha, email):
+        """Cancelamento lógico: a adesão continua registrada, com status cancelada."""
+        with abrir() as conexao:
+            conexao.execute("BEGIN IMMEDIATE")
+            linha = conexao.execute(
+                CONSULTA_ADESAO + " WHERE adesao.carteirinha = ? AND socio.email = ?",
+                (carteirinha, email)
+            ).fetchone()
+            if linha is None:
+                return None
+            if linha["status"] == "cancelada":
+                raise Conflito("Esta adesão já foi cancelada.")
+            conexao.execute(
+                "UPDATE adesao SET status = 'cancelada', data_cancelamento = ?"
+                " WHERE id_adesao = ?", (date.today().isoformat(), linha["id_adesao"]))
+            linha = conexao.execute(
+                CONSULTA_ADESAO + " WHERE adesao.id_adesao = ?", (linha["id_adesao"],)
+            ).fetchone()
+        return _adesao(linha)
+
+    def resumo(self):
         with abrir() as conexao:
             linhas = conexao.execute(
-                """SELECT emprestimo.*, usuario.nome AS nome_usuario,
-                          livro.titulo AS titulo_livro
-                   FROM emprestimo
-                   JOIN usuario ON emprestimo.id_usuario = usuario.id_usuario
-                   JOIN livro ON emprestimo.id_livro = livro.id_livro
-                   ORDER BY emprestimo.id_emprestimo DESC"""
+                """SELECT plano.id_plano, plano.nome,
+                          COUNT(adesao.id_adesao) AS total
+                   FROM plano
+                   LEFT JOIN adesao ON adesao.id_plano = plano.id_plano
+                                   AND adesao.status = 'ativa'
+                   GROUP BY plano.id_plano ORDER BY plano.valor_mensal"""
             ).fetchall()
-        resultado = []
-        for linha in linhas:
-            emprestimo = Emprestimo(
-                linha["data_emprestimo"], linha["id_usuario"],
-                linha["id_livro"], linha["data_devolucao"],
-                linha["id_emprestimo"]
-            )
-            dados = emprestimo.para_dict()
-            dados["nome_usuario"] = linha["nome_usuario"]
-            dados["titulo_livro"] = linha["titulo_livro"]
-            resultado.append(dados)
-        return resultado
-
-    def excluir(self, tabela, registro):
-        # Os nomes vêm da lista fechada na rota. Os valores usam parâmetros.
-        with abrir() as banco:
-            if tabela == "emprestimo":
-                banco.execute(
-                    """UPDATE livro SET quantidade = quantidade + 1
-                       WHERE id_livro = (SELECT id_livro FROM emprestimo
-                                         WHERE id_emprestimo = ?)""", (registro,)
-                )
-            cursor = banco.execute(f"DELETE FROM {tabela} WHERE id_{tabela} = ?", (registro,))
-            if cursor.rowcount != 1:
-                banco.rollback()
-                return False
-            return True
+        por_plano = [{"id_plano": l["id_plano"], "nome": l["nome"], "total": l["total"]}
+                     for l in linhas]
+        return {"total_ativas": sum(p["total"] for p in por_plano), "por_plano": por_plano}

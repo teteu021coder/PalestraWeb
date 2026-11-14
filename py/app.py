@@ -1,149 +1,132 @@
-from flask import Flask, jsonify, request, send_from_directory
 import os
-import sqlite3
-
 from pathlib import Path
-from flask import Response
-from dao import AuroraDAO
-from modelos import Autor, Livro, Usuario, Emprestimo
+
+from flask import Flask, jsonify, request, send_from_directory
+
+from dao import AdesaoDAO, PlanoDAO
+from modelos import Conflito, Socio
 
 app = Flask(__name__, static_folder=None)
-dao = AuroraDAO()
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+planos = PlanoDAO()
+adesoes = AdesaoDAO()
 RAIZ = Path(__file__).resolve().parents[1]
 
 
+# ---------- Páginas e arquivos do site ----------
 @app.get("/")
 @app.get("/index.html")
 def interface():
     return send_from_directory(RAIZ, "index.html")
 
 
-@app.get("/<any(css,js,pages,docs):pasta>/<path:nome>")
+@app.get("/<any(css,js,pages,docs,fonts):pasta>/<path:nome>")
 def arquivo(pasta, nome):
-    # O Flask identifica o modo da biblioteca sem testar se a API está online.
-    if pasta == "js" and nome == "modo.js":
-        return Response("const usarAPI = true;", mimetype="text/javascript",
-                        headers={"Cache-Control": "no-store"})
     return send_from_directory(RAIZ / pasta, nome)
 
 
 @app.after_request
-def configurar_cors(resposta):
-    origem = request.headers.get('Origin')
-    permitidas = os.environ.get('CORS_ORIGINS', '*').split(',')
-    if '*' in permitidas:
-        resposta.headers['Access-Control-Allow-Origin'] = '*'
-    elif origem in [item.strip() for item in permitidas]:
-        resposta.headers['Access-Control-Allow-Origin'] = origem
-        resposta.headers['Vary'] = 'Origin'
-    resposta.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    resposta.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
+def cabecalhos(resposta):
+    resposta.headers["X-Content-Type-Options"] = "nosniff"
+    resposta.headers["Referrer-Policy"] = "same-origin"
+    # O site e a API saem do mesmo endereço. CORS só se for pedido por variável.
+    origens = [o.strip() for o in os.environ.get("CORS_ORIGINS", "").split(",") if o.strip()]
+    origem = request.headers.get("Origin")
+    if origem and (origem in origens or "*" in origens):
+        resposta.headers["Access-Control-Allow-Origin"] = origem
+        resposta.headers["Vary"] = "Origin"
+        resposta.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        resposta.headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, OPTIONS"
     return resposta
 
-@app.route('/api/health', methods=['GET'])
+
+# ---------- API ----------
+def erro(mensagem, codigo):
+    return jsonify({"erro": mensagem}), codigo
+
+
+def corpo():
+    dados = request.get_json(silent=True)
+    return dados if isinstance(dados, dict) else {}
+
+
+@app.errorhandler(404)
+def nao_encontrado(_):
+    if request.path.startswith("/api/"):
+        return erro("Rota não encontrada.", 404)
+    return "Página não encontrada.", 404
+
+
+@app.errorhandler(405)
+def metodo_invalido(_):
+    return erro("Método não permitido nesta rota.", 405)
+
+
+@app.errorhandler(413)
+def corpo_grande(_):
+    return erro("O pedido é maior que o permitido.", 413)
+
+
+@app.get("/api/health")
 def health():
-    return jsonify({'status': 'ok', 'sistema': 'Biblioteca Aurora'})
+    return jsonify({"status": "ok", "sistema": "Sócio Avanti"})
 
 
-@app.route("/api/autores", methods=["GET", "POST"])
-def autores():
-    if request.method == "GET":
-        return jsonify([autor.para_dict() for autor in dao.listar_autores()])
+@app.get("/api/planos")
+def listar_planos():
+    return jsonify([plano.para_dict() for plano in planos.listar()])
 
-    dados = request.get_json(silent=True) or {}
-    nome = dados.get("nome")
-    if not nome:
-        return jsonify({"erro": "O nome do autor é obrigatório."}), 400
 
-    autor = Autor(nome, dados.get("nacionalidade"))
+@app.get("/api/resumo")
+def resumo():
+    return jsonify(adesoes.resumo())
+
+
+@app.post("/api/adesoes")
+def aderir():
+    dados = corpo()
     try:
-        dao.cadastrar_autor(autor)
-        return jsonify(autor.para_dict()), 201
-    except sqlite3.Error as erro:
-        return jsonify({"erro": str(erro)}), 400
+        socio = Socio(dados.get("nome"), dados.get("email"), dados.get("telefone"))
+        id_plano = int(dados.get("id_plano"))
+        adesao = adesoes.aderir(socio, id_plano)
+    except (ValueError, TypeError) as problema:
+        texto = str(problema)
+        if "int()" in texto or "NoneType" in texto:
+            texto = "Escolha um plano para continuar."
+        return erro(texto, 400)
+    except LookupError as problema:
+        return erro(str(problema), 404)
+    except Conflito as problema:
+        return erro(str(problema), 409)
+    return jsonify(adesao.para_dict()), 201
 
 
-@app.route("/api/livros", methods=["GET", "POST"])
-def livros():
-    if request.method == "GET":
-        return jsonify(dao.listar_livros())
+@app.post("/api/adesoes/consulta")
+def consultar():
+    dados = corpo()
+    carteirinha = str(dados.get("carteirinha") or "").strip().upper()
+    email = str(dados.get("email") or "").strip().lower()
+    if not carteirinha or not email:
+        return erro("Informe o número da carteirinha e o e-mail.", 400)
+    adesao = adesoes.consultar(carteirinha, email)
+    if adesao is None:
+        return erro("Não encontramos uma adesão com esses dados. Confira o número e o e-mail.", 404)
+    return jsonify(adesao.para_dict())
 
-    dados = request.get_json(silent=True) or {}
-    titulo = dados.get("titulo")
-    id_autor = dados.get("id_autor")
-    if not titulo or not id_autor:
-        return jsonify({"erro": "Título e id_autor são obrigatórios."}), 400
 
+@app.delete("/api/adesoes/<carteirinha>")
+def cancelar(carteirinha):
+    email = str(corpo().get("email") or "").strip().lower()
+    if not email:
+        return erro("Informe o e-mail da adesão para cancelar.", 400)
     try:
-        quantidade = int(dados.get("quantidade", 1))
-        ano = dados.get("ano_publicacao")
-        livro = Livro(titulo, ano, quantidade, int(id_autor))
-        dao.cadastrar_livro(livro)
-        return jsonify(livro.para_dict()), 201
-    except (ValueError, TypeError) as erro:
-        return jsonify({"erro": str(erro) or "Dados inválidos."}), 400
-    except sqlite3.Error as erro:
-        return jsonify({"erro": str(erro)}), 400
-
-
-@app.route("/api/usuarios", methods=["GET", "POST"])
-def usuarios():
-    if request.method == "GET":
-        return jsonify(dao.listar_usuarios())
-
-    dados = request.get_json(silent=True) or {}
-    nome = dados.get("nome")
-    email = dados.get("email")
-    if not nome or not email:
-        return jsonify({"erro": "Nome e e-mail são obrigatórios."}), 400
-
-    usuario = Usuario(nome, email, dados.get("telefone"))
-    try:
-        dao.cadastrar_usuario(usuario)
-        return jsonify(usuario.para_dict()), 201
-    except sqlite3.Error as erro:
-        return jsonify({
-            "erro": "Não foi possível cadastrar. Verifique se o e-mail já existe.",
-            "detalhe": str(erro)
-        }), 400
-
-
-@app.route("/api/emprestimos", methods=["GET", "POST"])
-def emprestimos():
-    if request.method == "GET":
-        return jsonify(dao.listar_emprestimos())
-
-    dados = request.get_json(silent=True) or {}
-    obrigatorios = ["data_emprestimo", "id_usuario", "id_livro"]
-    if any(not dados.get(campo) for campo in obrigatorios):
-        return jsonify({"erro": "Data, id_usuario e id_livro são obrigatórios."}), 400
-
-    try:
-        emprestimo = Emprestimo(
-            dados["data_emprestimo"],
-            int(dados["id_usuario"]),
-            int(dados["id_livro"]),
-            dados.get("data_devolucao")
-        )
-        dao.cadastrar_emprestimo(emprestimo)
-        return jsonify(emprestimo.para_dict()), 201
-    except ValueError as erro:
-        return jsonify({"erro": str(erro)}), 400
-    except (sqlite3.Error, TypeError) as erro:
-        return jsonify({"erro": str(erro)}), 400
-
-
-@app.delete("/api/<any(autores,livros,usuarios,emprestimos):grupo>/<int:registro>")
-def excluir(grupo, registro):
-    tabelas = {"autores": "autor", "livros": "livro", "usuarios": "usuario",
-               "emprestimos": "emprestimo"}
-    try:
-        if not dao.excluir(tabelas[grupo], registro):
-            return jsonify({"erro": "Registro não encontrado."}), 404
-        return jsonify({"excluido": True})
-    except sqlite3.IntegrityError:
-        return jsonify({"erro": "Há registros vinculados. Confira os livros e os empréstimos."}), 409
+        adesao = adesoes.cancelar(carteirinha.strip().upper(), email)
+    except Conflito as problema:
+        return erro(str(problema), 409)
+    if adesao is None:
+        return erro("Não encontramos uma adesão com esses dados.", 404)
+    return jsonify(adesao.para_dict())
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=int(os.environ.get('PORT', 5000)), debug=False)
+    app.run(host="127.0.0.1", port=int(os.environ.get("PORT", 5000)), debug=False)

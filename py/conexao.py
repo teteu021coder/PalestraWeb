@@ -11,15 +11,11 @@ preparo = Lock()
 def caminho_banco():
     if os.getenv("DB_PATH"):
         return Path(os.environ["DB_PATH"])
-    # Ao atualizar um projeto antigo, continue usando o banco que já existe.
-    for pasta in (PASTA / "banco", PASTA.parent / "etapa2/banco", PASTA.parent / "etapa1/banco"):
-        arquivo = pasta / "aurora.db"
-        if arquivo.is_file():
-            return arquivo
-    return PASTA / "banco/aurora.db"
+    return PASTA / "banco" / "avanti.db"
 
 
 def conectar():
+    """Abre o banco. Na primeira vez, cria as tabelas e os planos iniciais."""
     arquivo = caminho_banco()
     arquivo.parent.mkdir(parents=True, exist_ok=True)
     with preparo:
@@ -27,8 +23,8 @@ def conectar():
         banco = sqlite3.connect(arquivo)
         if novo:
             try:
-                schema = (PASTA / "sql/schema.sql").read_text(encoding="utf-8")
-                dados = (PASTA / "sql/dados.sql").read_text(encoding="utf-8")
+                schema = (PASTA / "sql" / "schema.sql").read_text(encoding="utf-8")
+                dados = (PASTA / "sql" / "dados.sql").read_text(encoding="utf-8")
                 banco.executescript("BEGIN;\n" + schema + dados + "\nCOMMIT;")
             except sqlite3.Error:
                 banco.close()
@@ -41,10 +37,10 @@ def conectar():
 
 @contextmanager
 def abrir():
-    """Abre a conexão, confirma ao final e desfaz tudo se houver erro.
+    """Confirma ao final e desfaz tudo se houver erro. Sempre fecha a conexão.
 
-    Sem isso, um INSERT que falha (e-mail repetido, por exemplo) deixa a
-    transação aberta e bloqueia as próximas gravações com "database is locked".
+    Sem isso, um INSERT que falha deixa a transação aberta e bloqueia as
+    próximas gravações com "database is locked".
     """
     banco = conectar()
     try:

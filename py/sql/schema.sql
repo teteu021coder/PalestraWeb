@@ -1,34 +1,35 @@
 PRAGMA foreign_keys = ON;
 
-
-CREATE TABLE autor (
-    id_autor INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL,
-    nacionalidade TEXT
+-- Planos do Sócio Avanti (valores fictícios, só para demonstração).
+CREATE TABLE plano (
+    id_plano INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL UNIQUE,
+    resumo TEXT NOT NULL,
+    valor_mensal REAL NOT NULL CHECK (valor_mensal >= 0),
+    beneficios TEXT NOT NULL
 );
 
-CREATE TABLE livro (
-    id_livro INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo TEXT NOT NULL,
-    ano_publicacao INTEGER,
-    quantidade INTEGER NOT NULL DEFAULT 1 CHECK (quantidade >= 0),
-    id_autor INTEGER NOT NULL,
-    FOREIGN KEY (id_autor) REFERENCES autor (id_autor)
-);
-
-CREATE TABLE usuario (
-    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+-- Quem aderiu. O e-mail identifica a pessoa.
+CREATE TABLE socio (
+    id_socio INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     telefone TEXT
 );
 
-CREATE TABLE emprestimo (
-    id_emprestimo INTEGER PRIMARY KEY AUTOINCREMENT,
-    data_emprestimo TEXT NOT NULL,
-    data_devolucao TEXT,
-    id_usuario INTEGER NOT NULL,
-    id_livro INTEGER NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
-    FOREIGN KEY (id_livro) REFERENCES livro (id_livro)
+-- Cada adesão liga um sócio a um plano. O cancelamento é lógico: o registro fica.
+CREATE TABLE adesao (
+    id_adesao INTEGER PRIMARY KEY AUTOINCREMENT,
+    carteirinha TEXT UNIQUE,
+    data_adesao TEXT NOT NULL,
+    data_cancelamento TEXT,
+    status TEXT NOT NULL DEFAULT 'ativa' CHECK (status IN ('ativa', 'cancelada')),
+    id_socio INTEGER NOT NULL,
+    id_plano INTEGER NOT NULL,
+    FOREIGN KEY (id_socio) REFERENCES socio (id_socio),
+    FOREIGN KEY (id_plano) REFERENCES plano (id_plano)
 );
+
+-- Regra no próprio banco: cada sócio tem no máximo uma adesão ativa.
+CREATE UNIQUE INDEX uma_adesao_ativa_por_socio
+    ON adesao (id_socio) WHERE status = 'ativa';
