@@ -15,6 +15,8 @@ Abra <http://127.0.0.1:5000>. O Flask serve o site e a API no mesmo endereço, e
 
 ## Testes
 
+Os testes usam um banco temporário e não mexem em `py/banco/avanti.db`.
+
 ```bash
 python py/test_api.py -v
 ```
