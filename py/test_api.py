@@ -83,6 +83,11 @@ class TesteApi(unittest.TestCase):
         self.assertEqual({p["nome"]: p["total"] for p in resumo["por_plano"]},
                          {"Palestra": 1, "Parque": 1, "Arena": 0})
 
+    def test_telefone_e_opcional_e_so_guarda_digitos(self):
+        self.assertEqual(self.aderir(telefone="").status_code, 201)
+        corpo = self.aderir(email="t@exemplo.com", telefone="(19) 99999-1111").get_json()
+        self.assertEqual(corpo["status"], "ativa")
+
     def test_rotas_invalidas_respondem_json(self):
         self.assertEqual(self.cliente.get("/api/nada").get_json()["erro"], "Rota não encontrada.")
         self.assertEqual(self.cliente.delete("/api/planos").status_code, 405)
