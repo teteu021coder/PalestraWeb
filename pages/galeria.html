@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Galeria · Arquivo Palestra</title>
+    <meta name="description" content="Galeria de fotografias do Allianz Parque, da torcida e das conquistas do Palmeiras." />
+    <meta name="theme-color" content="#064b36" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:description" content="Galeria de fotografias do Allianz Parque, da torcida e das conquistas do Palmeiras." />
+    <meta property="og:title" content="Galeria · Arquivo Palestra" />
     <link rel="icon" href="../docs/img/escudo.svg" />
     <link rel="stylesheet" href="../css/revista.css" />
   </head>
@@ -26,7 +32,9 @@
         <a href="../pages/conquistas.html">Conquistas</a>
         <a href="../pages/idolos.html">Ídolos e elenco</a>
         <a href="../pages/galeria.html" aria-current="page">Galeria</a>
-        <a href="../index.html#viva-palmeiras" class="acervo">Viva o Palmeiras <span aria-hidden="true">↗</span></a>
+        <a href="../pages/ingressos.html">Ingressos</a>
+        <a href="../pages/biblioteca.html">Biblioteca</a>
+        <a href="../pages/avanti.html" class="acervo">Sócio Avanti <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
     <main id="conteudo" class="miolo">
@@ -130,14 +138,22 @@
       </div>
     </main>
     <dialog id="ampliacao" aria-label="Fotografia ampliada">
-      <form method="dialog"><button>Fechar ×</button></form>
+      <div class="ampliacao-barra">
+        <span class="ampliacao-contador" aria-live="polite"></span>
+        <form method="dialog"><button class="ampliacao-fechar">Fechar ×</button></form>
+      </div>
       <img alt="" />
       <p></p>
+      <div class="ampliacao-nav">
+        <button type="button" data-dir="-1">← Anterior</button>
+        <button type="button" data-dir="1">Próxima →</button>
+      </div>
     </dialog>
     <footer>
-      <a class="marca" href="../index.html">Arquivo <i>Palestra</i></a
-      ><span>Projeto escolar independente</span
-      ><a href="../docs/creditos.html">Créditos e fontes ↗</a>
+      <a class="marca" href="../index.html">Arquivo <i>Palestra</i></a>
+      <nav class="rodape-nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/biblioteca.html">Biblioteca</a></nav>
+      <span>Projeto escolar independente</span>
+      <a href="../docs/creditos.html">Créditos e fontes ↗</a>
     </footer>
     <script src="../js/navegacao.js" defer></script>
     <script src="../js/galeria.js" defer></script>
