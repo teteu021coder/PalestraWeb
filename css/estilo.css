@@ -348,10 +348,16 @@ button { font: inherit; color: inherit; }
 .perfis { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 6rem); max-width: var(--largura); margin: 0 auto; padding: clamp(1rem, 3vw, 2rem) var(--margem) clamp(4rem, 8vw, 7rem); }
 .perfis aside { position: sticky; top: calc(var(--altura-topo) + 1.5rem); align-self: start; }
 .perfis aside img { width: 100%; max-width: 345px; border-radius: 4px; }
-.perfis article { padding: clamp(1.8rem, 4vw, 3rem) 0; border-top: 1px solid var(--linha); }
-.perfis article:first-child { border-top: 0; padding-top: 0; }
-.perfis h2 { margin-bottom: 1rem; font-size: clamp(2.6rem, 6.4vw, 6rem); line-height: 0.9; letter-spacing: -0.06em; }
-.perfis article p:not(.meta) { max-width: 54ch; font: 400 1.2rem/1.7 var(--leitura); }
+.perfis > div { display: grid; gap: clamp(1rem, 2vw, 1.5rem); align-content: start; }
+.perfis article { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; min-height: clamp(340px, 36vw, 460px); padding: clamp(1.6rem, 4vw, 3rem); border-radius: 14px; color: #fff; background: var(--tribuna); }
+/* Fundo monocromático: foto em escala de cinza, tingida de verde pelo degradê por cima. */
+.perfis article::before { content: ""; position: absolute; inset: 0; z-index: -2; background: var(--fundo) center / cover no-repeat; filter: grayscale(1) contrast(1.15) brightness(0.95); opacity: 0.6; transform: scale(1.04); transition: transform 0.9s var(--suave), opacity 0.4s; }
+.perfis article::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(5, 43, 29, 0.1) 0%, rgba(5, 43, 29, 0.93) 76%), linear-gradient(100deg, rgba(11, 93, 59, 0.6), rgba(5, 43, 29, 0) 62%); }
+@media (hover: hover) { .perfis article:hover::before { transform: scale(1.09); opacity: 0.78; } }
+.idolo__fantasma { position: absolute; top: clamp(0.8rem, 2vw, 1.4rem); right: clamp(1rem, 3vw, 2rem); z-index: -1; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3); font: 900 clamp(4rem, 11vw, 9rem)/0.85 var(--display); letter-spacing: -0.06em; text-transform: uppercase; pointer-events: none; user-select: none; }
+.perfis article .meta { color: rgba(255, 255, 255, 0.8); }
+.perfis h2 { margin-bottom: 1rem; font-size: clamp(2.6rem, 6.4vw, 6rem); line-height: 0.9; letter-spacing: -0.06em; text-shadow: 0 2px 24px rgba(5, 43, 29, 0.6); }
+.perfis article p:not(.meta) { max-width: 54ch; margin: 0; color: rgba(255, 255, 255, 0.93); font: 400 1.2rem/1.7 var(--leitura); }
 
 /* Galeria */
 .galeria { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(0.8rem, 1.6vw, 1.4rem); max-width: var(--largura); margin: 0 auto; padding: 0 var(--margem) clamp(4rem, 8vw, 7rem); }
@@ -493,7 +499,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Utilidades ---------- */
 [hidden] { display: none !important; }
-code { padding: 0.1em 0.35em; border-radius: 4px; background: var(--relva-clara); font-size: 0.9em; }
+code { padding: 0.1em 0.35em; border-radius: 4px; background: var(--relva-clara); font-size: 0.9em; overflow-wrap: anywhere; }
 
 /* ---------- Sócio Avanti ---------- */
 .contador { max-width: var(--largura); margin: 0 auto; padding: 0 var(--margem) 1.5rem; color: var(--relva); font: 600 1.05rem/1.4 var(--texto); }
