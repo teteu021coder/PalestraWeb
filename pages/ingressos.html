@@ -32,31 +32,53 @@
       <header class="cabeca">
         <p class="meta">Allianz Parque, dia de jogo</p>
         <h1>Escolha seu setor</h1>
-        <p class="cabeca__lede">Um mapa ilustrativo do Allianz Parque: selecione um setor para ver assentos de demonstração.</p>
+        <p class="cabeca__lede">Escolha um setor no mapa, marque até quatro assentos e confira o resumo do pedido. Assentos e valores são de demonstração.</p>
         <span class="gramado" aria-hidden="true"></span>
       </header>
       <div class="mapa-layout">
         <section class="estadio" aria-label="Mapa esquemático do estádio">
           <div class="estadio__grade">
-            <button class="setor setor-oeste" type="button" data-setor="Oeste" aria-pressed="false">Oeste</button>
-            <button class="setor setor-norte" type="button" data-setor="Gol Norte" aria-pressed="false">Gol Norte</button>
+            <button class="setor setor-oeste" type="button" data-setor="Oeste" aria-pressed="false"><span class="setor__nome">Oeste</span><span class="setor__preco">a partir de R$ 180</span></button>
+            <button class="setor setor-norte" type="button" data-setor="Gol Norte" aria-pressed="false"><span class="setor__nome">Gol Norte</span><span class="setor__preco">a partir de R$ 90</span></button>
             <div class="campo" aria-hidden="true"></div>
-            <button class="setor setor-sul" type="button" data-setor="Gol Sul" aria-pressed="false">Gol Sul</button>
-            <button class="setor setor-leste" type="button" data-setor="Leste" aria-pressed="false">Leste</button>
+            <button class="setor setor-sul" type="button" data-setor="Gol Sul" aria-pressed="false"><span class="setor__nome">Gol Sul</span><span class="setor__preco">a partir de R$ 80</span></button>
+            <button class="setor setor-leste" type="button" data-setor="Leste" aria-pressed="false"><span class="setor__nome">Leste</span><span class="setor__preco">a partir de R$ 140</span></button>
           </div>
-          <p class="estadio__aviso">Desenho simplificado. Não é a planta oficial nem mostra a numeração real das cadeiras.</p>
+          <ul class="setores-info" aria-label="Resumo dos setores">
+            <li><strong>Oeste</strong><span>Vista lateral, mais próxima do centro do campo.</span><b>R$ 180</b></li>
+            <li><strong>Leste</strong><span>Vista lateral do lado oposto.</span><b>R$ 140</b></li>
+            <li><strong>Gol Norte</strong><span>Atrás do gol, clima de arquibancada.</span><b>R$ 90</b></li>
+            <li><strong>Gol Sul</strong><span>Atrás do gol, no lado contrário.</span><b>R$ 80</b></li>
+          </ul>
+          <p class="estadio__aviso">Desenho simplificado. Não é a planta oficial, e os valores e a numeração das cadeiras são ilustrativos.</p>
         </section>
-        <aside class="mapa-info">
+        <aside class="mapa-info" aria-label="Escolha de assentos">
+          <ol class="passos" id="passos" aria-label="Etapas">
+            <li class="passo passo--ativo" data-passo="1"><b>1</b><span>Setor</span></li>
+            <li class="passo" data-passo="2"><b>2</b><span>Assentos</span></li>
+            <li class="passo" data-passo="3"><b>3</b><span>Resumo</span></li>
+          </ol>
           <h2 id="titulo-setor">Escolha um setor</h2>
           <p id="instrucao">Toque em Gol Norte, Gol Sul, Leste ou Oeste no mapa para ver os assentos ilustrativos.</p>
+          <p class="setor-meta" id="setor-meta" hidden></p>
           <div id="assentos" class="assentos"></div>
           <ul id="legenda-assentos" class="legenda-assentos" hidden><li><i class="livre"></i>Livre</li><li><i class="marcado"></i>Selecionado</li><li><i class="indisponivel"></i>Ocupado</li></ul>
-          <div class="bilhete" id="bilhete" hidden>
-            <div class="bilhete__corpo"><h3 id="bilhete-setor"></h3><p>Assento de demonstração. Nada foi reservado.</p></div>
-            <div class="bilhete__canhoto"><small>Assento</small><span class="bilhete__numero" id="bilhete-numero"></span></div>
-          </div>
+          <section class="resumo" id="resumo" aria-label="Resumo do pedido" hidden>
+            <h3>Resumo do pedido</h3>
+            <dl class="resumo__linhas">
+              <div><dt>Setor</dt><dd id="resumo-setor"></dd></div>
+              <div><dt>Ingressos</dt><dd id="resumo-qtd"></dd></div>
+              <div><dt>Valor por ingresso</dt><dd id="resumo-unit"></dd></div>
+              <div class="resumo__total"><dt>Total</dt><dd id="resumo-total"></dd></div>
+            </dl>
+            <div class="bilhetes" id="bilhetes"></div>
+            <p class="resumo__nota">Seleção de demonstração. Nada foi reservado nem cobrado.</p>
+          </section>
           <p id="selecionado" class="so-leitor" aria-live="polite"></p>
-          <a class="botao botao--claro" href="https://www.palmeiras.com.br/ingressos" target="_blank" rel="noopener noreferrer">Ir à venda oficial</a>
+          <div class="acoes">
+            <button class="botao botao--contorno" type="button" id="limpar" hidden>Limpar seleção</button>
+            <a class="botao botao--claro" href="https://www.palmeiras.com.br/ingressos" target="_blank" rel="noopener noreferrer">Ir à venda oficial</a>
+          </div>
         </aside>
       </div>
     </main>
