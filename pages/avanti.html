@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sócio Avanti · Arquivo Palestra</title>
+    <meta name="description" content="Escolha um plano, cadastre-se e receba a carteirinha digital do Sócio Avanti. Simulação feita para um projeto escolar." />
+    <meta name="theme-color" content="#052b1d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Sócio Avanti · Arquivo Palestra" />
+    <meta property="og:description" content="Escolha um plano, cadastre-se e receba a carteirinha digital do Sócio Avanti. Simulação feita para um projeto escolar." />
+    <link rel="icon" href="../docs/img/escudo.svg" />
+    <link rel="preload" href="../fonts/inter-display-black.woff" as="font" type="font/woff" crossorigin />
+    <link rel="stylesheet" href="../css/estilo.css" />
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <header class="topo">
+      <a class="marca" href="../index.html"><img src="../docs/img/escudo.svg" width="38" height="38" alt="" />Arquivo Palestra</a>
+      <button class="topo__botao" id="abrir-menu" type="button" aria-controls="menu" aria-expanded="false"><span class="rotulo-fechado">Menu</span><span class="rotulo-aberto">Fechar</span></button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="../pages/historia.html">História</a>
+        <a href="../pages/conquistas.html">Conquistas</a>
+        <a href="../pages/idolos.html">Ídolos e elenco</a>
+        <a href="../pages/galeria.html">Galeria</a>
+        <a href="../pages/ingressos.html">Ingressos</a>
+        <a class="botao botao--cheio" href="../pages/avanti.html" aria-current="page">Seja sócio</a>
+      </nav>
+    </header>
+    <main id="conteudo">
+      <header class="cabeca">
+        <p class="meta">Cadastro simulado</p>
+        <h1>Seja sócio Avanti</h1>
+        <p class="cabeca__lede">Escolha um plano, preencha três campos e receba o número da sua carteirinha.</p>
+        <span class="gramado" aria-hidden="true"></span>
+      </header>
+      <p class="contador" id="contador" aria-live="polite" hidden></p>
+      <div class="aviso-offline" id="offline" role="alert" hidden>
+        <strong>O servidor não respondeu.</strong>
+        <p>Este cadastro usa a API em Flask do projeto. Rode <code>python py/app.py</code> e abra <code>http://127.0.0.1:5000/pages/avanti.html</code>.</p>
+      </div>
+      <div class="adesao">
+        <section class="adesao__fluxo" aria-labelledby="titulo-adesao">
+          <h2 id="titulo-adesao">Faça sua adesão</h2>
+          <form id="form-adesao" novalidate>
+            <fieldset class="planos" id="planos">
+              <legend>1. Escolha o plano</legend>
+              <p class="carregando" id="planos-carregando">Carregando planos…</p>
+            </fieldset>
+            <fieldset class="dados">
+              <legend>2. Seus dados</legend>
+              <label class="campo-texto">Nome completo<input name="nome" type="text" autocomplete="name" required minlength="3" maxlength="80" /></label>
+              <label class="campo-texto">E-mail<input name="email" type="email" autocomplete="email" required maxlength="120" /></label>
+              <label class="campo-texto">Telefone com DDD (opcional)<input name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(19) 99999-0000" /></label>
+            </fieldset>
+            <p class="erro-form" id="erro-adesao" role="alert" hidden></p>
+            <button class="botao botao--cheio" type="submit" id="enviar">Criar minha carteirinha</button>
+          </form>
+          <div class="sucesso" id="sucesso" hidden>
+            <h3>Adesão feita!</h3>
+            <p>Guarde o número da carteirinha e o e-mail cadastrado. Os dois são necessários para consultar ou cancelar.</p>
+            <a class="botao botao--claro" href="#minha">Consultar uma carteirinha</a>
+          </div>
+        </section>
+        <div class="adesao__palco">
+          <div class="carteirinha carteirinha--vazia" data-carteirinha id="previa">
+            <div class="carteirinha__topo"><img src="../docs/img/escudo.svg" width="34" height="34" alt="" /><span>Sócio Avanti</span></div>
+            <p class="carteirinha__nome">Seu nome aqui</p>
+            <dl class="carteirinha__dados"><div><dt>Plano</dt><dd>A escolher</dd></div><div><dt>Desde</dt><dd>Hoje</dd></div></dl>
+            <div class="carteirinha__rodape"><p class="carteirinha__numero">AV-0000-000000</p><span class="carteirinha__barras" aria-hidden="true"></span></div>
+            <span class="carteirinha__selo">Cancelada</span>
+          </div>
+          <p class="nota">Simulação feita para estudo. Nenhum pagamento é cobrado e os dados ficam apenas no banco local do projeto.</p>
+        </div>
+      </div>
+      <section class="minha" id="minha" aria-labelledby="titulo-minha">
+        <div class="minha__form">
+          <h2 id="titulo-minha">Já sou sócio</h2>
+          <p>Digite o número da carteirinha e o e-mail do cadastro para ver ou cancelar a adesão.</p>
+          <form id="form-consulta" novalidate>
+            <label class="campo-texto">Número da carteirinha<input name="carteirinha" type="text" placeholder="AV-2026-000001" autocapitalize="characters" required /></label>
+            <label class="campo-texto">E-mail do cadastro<input name="email" type="email" autocomplete="email" required /></label>
+            <p class="erro-form" id="erro-consulta" role="alert" hidden></p>
+            <button class="botao botao--cheio" type="submit">Consultar</button>
+          </form>
+        </div>
+        <div class="minha__resultado" id="resultado" aria-live="polite" hidden>
+          <div class="carteirinha carteirinha--vazia" data-carteirinha id="cartao">
+            <div class="carteirinha__topo"><img src="../docs/img/escudo.svg" width="34" height="34" alt="" /><span>Sócio Avanti</span></div>
+            <p class="carteirinha__nome">Seu nome aqui</p>
+            <dl class="carteirinha__dados"><div><dt>Plano</dt><dd>A escolher</dd></div><div><dt>Desde</dt><dd>Hoje</dd></div></dl>
+            <div class="carteirinha__rodape"><p class="carteirinha__numero">AV-0000-000000</p><span class="carteirinha__barras" aria-hidden="true"></span></div>
+            <span class="carteirinha__selo">Cancelada</span>
+          </div>
+          <p class="nota" id="info-adesao"></p>
+          <div class="acoes-adesao">
+            <button class="botao botao--contorno" type="button" id="cancelar">Cancelar adesão</button>
+            <span id="confirmacao" hidden>
+              <span>Cancelar de verdade?</span>
+              <button class="botao botao--cheio" type="button" id="confirmar-cancelamento">Sim, cancelar</button>
+              <button class="botao botao--contorno" type="button" id="manter">Manter</button>
+            </span>
+          </div>
+        </div>
+      </section>
+      <div class="fecho-pagina"><p class="nota">Quer o programa de verdade? Veja os planos oficiais em <a href="https://www.palmeiras.com.br/" target="_blank" rel="noopener noreferrer">palmeiras.com.br</a>.</p></div>
+    </main>
+    <footer class="rodape escuro">
+      <div class="rodape__topo">
+        <p class="rodape__texto">Projeto escolar independente sobre a história do Palmeiras. Não é um site oficial do clube, e o Sócio Avanti daqui é uma simulação feita para estudo.</p>
+        <nav class="rodape__nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/avanti.html">Sócio Avanti</a><a href="../docs/creditos.html">Créditos e fontes</a></nav>
+      </div>
+      <p class="rodape__marca" aria-hidden="true">Palestra</p>
+    </footer>
+    <script src="../js/navegacao.js" defer></script>
+    <script src="../js/avanti.js" defer></script>
+  </body>
+</html>
