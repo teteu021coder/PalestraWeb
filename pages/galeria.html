@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Galeria · Arquivo Palestra</title>
+    <meta name="description" content="Fotografias do Parque Antarctica, do Allianz Parque e da torcida do Palmeiras." />
+    <meta name="theme-color" content="#052b1d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Galeria · Arquivo Palestra" />
+    <meta property="og:description" content="Fotografias do Parque Antarctica, do Allianz Parque e da torcida do Palmeiras." />
+    <link rel="icon" href="../docs/img/escudo.svg" />
+    <link rel="preload" href="../fonts/inter-display-black.woff" as="font" type="font/woff" crossorigin />
+    <link rel="stylesheet" href="../css/estilo.css" />
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <header class="topo">
+      <a class="marca" href="../index.html"><img src="../docs/img/escudo.svg" width="38" height="38" alt="" />Arquivo Palestra</a>
+      <button class="topo__botao" id="abrir-menu" type="button" aria-controls="menu" aria-expanded="false"><span class="rotulo-fechado">Menu</span><span class="rotulo-aberto">Fechar</span></button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="../pages/historia.html">História</a>
+        <a href="../pages/conquistas.html">Conquistas</a>
+        <a href="../pages/idolos.html">Ídolos e elenco</a>
+        <a href="../pages/galeria.html" aria-current="page">Galeria</a>
+        <a href="../pages/ingressos.html">Ingressos</a>
+        <a class="botao botao--cheio" href="../pages/avanti.html">Seja sócio</a>
+      </nav>
+    </header>
+    <main id="conteudo">
+      <header class="cabeca">
+        <p class="meta">Galeria fotográfica</p>
+        <h1>Da geral ao gramado</h1>
+        <p class="cabeca__lede">O campo visto do alto, a espera pelo apito e a volta olímpica. Toque numa fotografia para ampliar.</p>
+        <span class="gramado" aria-hidden="true"></span>
+      </header>
+      <div class="galeria">
+        <figure>
+          <button class="ampliar" type="button" aria-label="Ampliar foto: O antigo Parque Antarctica visto de cima."><img src="../docs/img/parque.webp" width="1600" height="576" alt="O antigo Parque Antarctica visto de cima." fetchpriority="high" /><span aria-hidden="true">Ampliar</span></button>
+          <figcaption class="legenda">O antigo Parque Antarctica visto de cima. <span>Acervo S.E. Palmeiras</span></figcaption>
+        </figure>
+        <figure>
+          <button class="ampliar" type="button" aria-label="Ampliar foto: O gramado na noite de inauguração da arena, em 2014."><img src="../docs/img/arena.webp" width="1280" height="960" alt="O gramado na noite de inauguração da arena, em 2014." loading="lazy" /><span aria-hidden="true">Ampliar</span></button>
+          <figcaption class="legenda">O gramado na noite de inauguração da arena, em 2014. <span>Leonef</span></figcaption>
+        </figure>
+        <figure>
+          <button class="ampliar" type="button" aria-label="Ampliar foto: Palmeiras e São Paulo vistos da arquibancada."><img src="../docs/img/classico.webp" width="1467" height="1100" alt="Palmeiras e São Paulo vistos da arquibancada." loading="lazy" /><span aria-hidden="true">Ampliar</span></button>
+          <figcaption class="legenda">Palmeiras e São Paulo vistos da arquibancada. <span>Leonef</span></figcaption>
+        </figure>
+        <figure>
+          <button class="ampliar" type="button" aria-label="Ampliar foto: O Gol Norte na final da Copa do Brasil."><img src="../docs/img/torcida.webp" width="1296" height="972" alt="O Gol Norte na final da Copa do Brasil." loading="lazy" /><span aria-hidden="true">Ampliar</span></button>
+          <figcaption class="legenda">O Gol Norte na final da Copa do Brasil. <span>DanteCan</span></figcaption>
+        </figure>
+        <figure>
+          <button class="ampliar" type="button" aria-label="Ampliar foto: O elenco festeja o título brasileiro de 2023."><img src="../docs/img/taca.webp" width="1500" height="844" alt="O elenco festeja o título brasileiro de 2023." loading="lazy" /><span aria-hidden="true">Ampliar</span></button>
+          <figcaption class="legenda">O elenco festeja o título brasileiro de 2023. <span>Acervo S.E. Palmeiras</span></figcaption>
+        </figure>
+      </div>
+      <dialog id="ampliacao" aria-label="Foto ampliada">
+        <div class="ampliacao-barra"><span class="ampliacao-contador"></span><form method="dialog"><button>Fechar</button></form></div>
+        <img src="" alt="" />
+        <p></p>
+        <div class="ampliacao-nav"><button type="button" data-dir="-1">Anterior</button><button type="button" data-dir="1">Próxima</button></div>
+      </dialog>
+    </main>
+    <footer class="rodape escuro">
+      <div class="rodape__topo">
+        <p class="rodape__texto">Projeto escolar independente sobre a história do Palmeiras. Não é um site oficial do clube, e o Sócio Avanti daqui é uma simulação feita para estudo.</p>
+        <nav class="rodape__nav" aria-label="Rodapé"><a href="../pages/historia.html">História</a><a href="../pages/conquistas.html">Conquistas</a><a href="../pages/idolos.html">Ídolos e elenco</a><a href="../pages/galeria.html">Galeria</a><a href="../pages/ingressos.html">Ingressos</a><a href="../pages/avanti.html">Sócio Avanti</a><a href="../docs/creditos.html">Créditos e fontes</a></nav>
+      </div>
+      <p class="rodape__marca" aria-hidden="true">Palestra</p>
+    </footer>
+    <script src="../js/navegacao.js" defer></script>
+    <script src="../js/galeria.js" defer></script>
+  </body>
+</html>
