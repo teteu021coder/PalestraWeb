@@ -1,0 +1,12 @@
+Fontes usadas no site (versões reduzidas ao alfabeto latino, convertidas para WOFF).
+
+Inter e Inter Display
+  Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
+  Licença: SIL Open Font License 1.1 (https://openfontlicense.org)
+
+Caladea
+  Copyright 2012 The Caladea Project Authors (https://github.com/huertatipografica/Caladea)
+  Licença: SIL Open Font License 1.1 (https://openfontlicense.org)
+
+As duas licenças permitem uso, incorporação e redistribuição das fontes, desde que
+elas não sejam vendidas isoladamente.
