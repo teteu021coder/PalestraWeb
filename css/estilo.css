@@ -460,6 +460,97 @@ button { font: inherit; color: inherit; }
 .acoes .botao--contorno:hover { background: rgba(255, 255, 255, 0.12); }
 .acoes .botao[hidden] { display: none; }
 
+/* ---------- Central de ingressos ---------- */
+.aviso-js { max-width: var(--largura); margin: 0 auto 2rem; padding: 1rem var(--margem); color: var(--tribuna); background: var(--relva-clara); }
+
+.subnav { position: sticky; top: var(--altura-topo); z-index: 20; border-block: 1px solid var(--linha); background: rgba(243, 246, 241, 0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.subnav__lista { display: flex; gap: 0.45rem; max-width: var(--largura); margin: 0 auto; padding: 0.65rem var(--margem); list-style: none; overflow-x: auto; scrollbar-width: none; }
+.subnav__lista::-webkit-scrollbar { display: none; }
+.subnav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 1.1em; border: 1.5px solid var(--linha); border-radius: 999px; background: #fff; font: 600 0.9rem/1 var(--texto); text-decoration: none; white-space: nowrap; transition: border-color 0.2s, color 0.2s; }
+.subnav a:hover { border-color: var(--relva); color: var(--relva); }
+
+.bloco { max-width: var(--largura); margin: 0 auto; padding: clamp(3rem, 7vw, 5.5rem) var(--margem) 0; }
+.bloco__cab { max-width: 60ch; margin-bottom: clamp(1.4rem, 3vw, 2.4rem); }
+.bloco__cab h2 { margin-bottom: 0.8rem; font-size: clamp(2rem, 4.2vw, 3.6rem); }
+.bloco__cab p { margin: 0; color: var(--cinza); font: 400 1.15rem/1.55 var(--leitura); }
+.bloco .mapa-layout { padding: 0; }
+.nota-sec { max-width: 70ch; margin: 1rem 0 0; color: var(--cinza); font-size: 0.9rem; }
+
+/* Jogos */
+.jogos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 0.9rem; margin: 0; padding: 0; list-style: none; }
+.jogos li { display: flex; }
+.jogo { display: grid; align-content: start; gap: 0.45rem; width: 100%; padding: 1.2rem 1.25rem; border: 2px solid var(--linha); border-radius: 14px; background: #fff; text-align: left; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s var(--suave); }
+.jogo__topo { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+.jogo__data { color: var(--cinza); font: 600 0.82rem/1.2 var(--texto); text-transform: uppercase; letter-spacing: 0.04em; }
+.jogo__selo { padding: 0.2rem 0.6rem; border-radius: 999px; color: #fff; background: var(--bilhete); font: 600 0.72rem/1.2 var(--texto); }
+.jogo__times { font: 900 clamp(1.3rem, 2vw, 1.6rem)/1.05 var(--display); letter-spacing: -0.035em; }
+.jogo__comp { color: var(--cinza); font-size: 0.88rem; }
+.jogo__preco { margin-top: 0.4rem; color: var(--relva); font: 600 0.95rem/1 var(--texto); }
+.jogo[aria-pressed="true"] { border-color: var(--relva); box-shadow: inset 0 0 0 1px var(--relva), 0 18px 30px -22px rgba(5, 43, 29, 0.6); }
+.jogo[aria-pressed="true"] .jogo__preco::after { content: " · escolhido"; color: var(--cinza); font-weight: 500; }
+@media (hover: hover) { .jogo:hover { border-color: var(--relva); transform: translateY(-2px); } }
+.jogo-escolhido { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.2rem; margin: 1.2rem 0 0; font-weight: 500; }
+.jogo-escolhido a { color: var(--relva); font-weight: 600; text-underline-offset: 0.25em; }
+
+/* Tipo de ingresso (dentro do painel escuro) */
+.tipos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin: 0 0 1.4rem; padding: 0; border: 0; }
+.tipos legend { padding: 0; margin-bottom: 0.6rem; float: left; width: 100%; color: rgba(255, 255, 255, 0.86); font-size: 0.85rem; font-weight: 600; }
+.tipo { position: relative; display: block; }
+.tipo input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.tipo span { display: grid; gap: 0.15rem; height: 100%; padding: 0.7rem 0.8rem; border: 1.5px solid rgba(255, 255, 255, 0.28); border-radius: 10px; transition: background-color 0.15s, border-color 0.15s; }
+.tipo strong { font: 600 0.9rem/1.2 var(--texto); }
+.tipo small { color: rgba(255, 255, 255, 0.78); font-size: 0.78rem; }
+.tipo input:checked + span { border-color: var(--bilhete); background: var(--bilhete); }
+.tipo input:checked + span small { color: #fff; }
+.tipo input:focus-visible + span { outline: 3px solid #fff; outline-offset: 2px; }
+@media (hover: hover) { .tipo input:not(:checked):hover + span { background: rgba(255, 255, 255, 0.12); } }
+.mapa-info__titulo { margin-bottom: 0.8rem; font-size: clamp(1.9rem, 3.4vw, 3rem); }
+
+/* Tabela de preços */
+.rolagem { overflow-x: auto; border: 1px solid var(--linha); border-radius: 14px; background: #fff; }
+.tabela-precos { width: 100%; min-width: 520px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.tabela-precos th, .tabela-precos td { padding: 1rem 1.2rem; text-align: right; border-bottom: 1px solid var(--linha); }
+.tabela-precos thead th { color: var(--cinza); background: var(--giz); font: 600 0.82rem/1.2 var(--texto); text-transform: uppercase; letter-spacing: 0.04em; }
+.tabela-precos th:first-child { text-align: left; }
+.tabela-precos tbody th { font: 600 1.05rem/1.2 var(--display); }
+.tabela-precos td { font-weight: 500; }
+.tabela-precos tbody tr:last-child th, .tabela-precos tbody tr:last-child td { border-bottom: 0; }
+.tabela-precos__ativo { color: var(--relva); background: var(--relva-clara); font-weight: 600; }
+
+/* Etapas, cartões e dúvidas */
+.etapas { counter-reset: etapa; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.etapas li { counter-increment: etapa; padding: 1.4rem; border: 1px solid var(--linha); border-radius: 14px; background: #fff; }
+.etapas li::before { content: counter(etapa); display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 0.9rem; border-radius: 50%; color: #fff; background: var(--bilhete); font: 900 1.1rem/1 var(--display); }
+.etapas h3, .cartao h3 { margin-bottom: 0.6rem; font-size: 1.3rem; line-height: 1.1; }
+.etapas p, .cartao p, .cartao li { color: var(--cinza); }
+.etapas p { margin: 0; }
+.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; }
+.cartao { padding: clamp(1.2rem, 2.4vw, 1.7rem); border: 1px solid var(--linha); border-radius: 14px; background: #fff; }
+.cartao p:last-child, .cartao ul:last-child { margin-bottom: 0; }
+.cartao ul { padding-left: 1.2rem; }
+.cartao li + li { margin-top: 0.4rem; }
+
+.duvidas { max-width: 80ch; border-top: 1px solid var(--linha); }
+.duvidas details { border-bottom: 1px solid var(--linha); }
+.duvidas summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 0; font: 600 1.1rem/1.3 var(--texto); cursor: pointer; list-style: none; }
+.duvidas summary::-webkit-details-marker { display: none; }
+.duvidas summary::after { content: "+"; flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: var(--relva); background: var(--relva-clara); font-size: 1.3rem; line-height: 1; }
+.duvidas details[open] summary::after { content: "–"; }
+.duvidas p { margin: 0 0 1.2rem; color: var(--cinza); }
+
+.cta-avanti { margin-top: clamp(3.5rem, 8vw, 6rem); padding: clamp(2.5rem, 6vw, 4.5rem) var(--margem); color: #fff; background: var(--tribuna); }
+.cta-avanti__miolo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 3rem; max-width: var(--largura); margin: 0 auto; }
+.cta-avanti h2 { margin-bottom: 0.7rem; font-size: clamp(2rem, 4vw, 3.2rem); }
+.cta-avanti p { max-width: 42ch; margin: 0; color: rgba(255, 255, 255, 0.86); font: 400 1.15rem/1.5 var(--leitura); }
+.cta-avanti :focus-visible { outline-color: #fff; }
+
+@media (max-width: 520px) {
+  .tabela-precos th, .tabela-precos td { padding: 0.85rem 0.9rem; }
+  .tipo span { padding: 0.6rem 0.6rem; }
+  .tipo strong { font-size: 0.82rem; }
+  .tipo small { font-size: 0.72rem; }
+}
+
 /* ---------- Texto corrido simples (créditos) ---------- */
 .texto-simples { max-width: 70ch; margin: 0 auto; padding: 0 var(--margem) clamp(4rem, 8vw, 7rem); }
 .texto-simples h2 { margin: 2.5rem 0 1rem; font-size: clamp(1.8rem, 3vw, 2.6rem); }

@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ingressos · Arquivo Palestra</title>
-    <meta name="description" content="Mapa ilustrativo do Allianz Parque para testar a escolha de setor e assento, com link para a venda oficial." />
+    <meta name="description" content="Central de ingressos simulada: escolha o jogo, o setor e os assentos do Allianz Parque, veja os preços e tire dúvidas sem sair do site." />
     <meta name="theme-color" content="#052b1d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content="Ingressos · Arquivo Palestra" />
-    <meta property="og:description" content="Mapa ilustrativo do Allianz Parque para testar a escolha de setor e assento, com link para a venda oficial." />
+    <meta property="og:description" content="Central de ingressos simulada: escolha o jogo, o setor e os assentos do Allianz Parque, veja os preços e tire dúvidas sem sair do site." />
     <link rel="icon" href="../docs/img/escudo.svg" />
     <link rel="preload" href="../fonts/inter-display-black.woff" as="font" type="font/woff" crossorigin />
     <link rel="stylesheet" href="../css/estilo.css" />
@@ -30,57 +30,191 @@
     </header>
     <main id="conteudo">
       <header class="cabeca">
-        <p class="meta">Allianz Parque, dia de jogo</p>
-        <h1>Escolha seu setor</h1>
-        <p class="cabeca__lede">Escolha um setor no mapa, marque até quatro assentos e confira o resumo do pedido. Assentos e valores são de demonstração.</p>
+        <p class="meta">Central de ingressos · simulação</p>
+        <h1>Ingressos</h1>
+        <p class="cabeca__lede">Escolha o jogo, o setor e os assentos, confira os preços e tire as dúvidas sem sair daqui. Nada é vendido nem cobrado.</p>
         <span class="gramado" aria-hidden="true"></span>
       </header>
-      <div class="mapa-layout">
-        <section class="estadio" aria-label="Mapa esquemático do estádio">
-          <div class="estadio__grade">
-            <button class="setor setor-oeste" type="button" data-setor="Oeste" aria-pressed="false"><span class="setor__nome">Oeste</span><span class="setor__preco">a partir de R$ 180</span></button>
-            <button class="setor setor-norte" type="button" data-setor="Gol Norte" aria-pressed="false"><span class="setor__nome">Gol Norte</span><span class="setor__preco">a partir de R$ 90</span></button>
-            <div class="campo" aria-hidden="true"></div>
-            <button class="setor setor-sul" type="button" data-setor="Gol Sul" aria-pressed="false"><span class="setor__nome">Gol Sul</span><span class="setor__preco">a partir de R$ 80</span></button>
-            <button class="setor setor-leste" type="button" data-setor="Leste" aria-pressed="false"><span class="setor__nome">Leste</span><span class="setor__preco">a partir de R$ 140</span></button>
-          </div>
-          <ul class="setores-info" aria-label="Resumo dos setores">
-            <li><strong>Oeste</strong><span>Vista lateral, mais próxima do centro do campo.</span><b>R$ 180</b></li>
-            <li><strong>Leste</strong><span>Vista lateral do lado oposto.</span><b>R$ 140</b></li>
-            <li><strong>Gol Norte</strong><span>Atrás do gol, clima de arquibancada.</span><b>R$ 90</b></li>
-            <li><strong>Gol Sul</strong><span>Atrás do gol, no lado contrário.</span><b>R$ 80</b></li>
-          </ul>
-          <p class="estadio__aviso">Desenho simplificado. Não é a planta oficial, e os valores e a numeração das cadeiras são ilustrativos.</p>
-        </section>
-        <aside class="mapa-info" aria-label="Escolha de assentos">
-          <ol class="passos" id="passos" aria-label="Etapas">
-            <li class="passo passo--ativo" data-passo="1"><b>1</b><span>Setor</span></li>
-            <li class="passo" data-passo="2"><b>2</b><span>Assentos</span></li>
-            <li class="passo" data-passo="3"><b>3</b><span>Resumo</span></li>
-          </ol>
-          <h2 id="titulo-setor">Escolha um setor</h2>
-          <p id="instrucao">Toque em Gol Norte, Gol Sul, Leste ou Oeste no mapa para ver os assentos ilustrativos.</p>
-          <p class="setor-meta" id="setor-meta" hidden></p>
-          <div id="assentos" class="assentos"></div>
-          <ul id="legenda-assentos" class="legenda-assentos" hidden><li><i class="livre"></i>Livre</li><li><i class="marcado"></i>Selecionado</li><li><i class="indisponivel"></i>Ocupado</li></ul>
-          <section class="resumo" id="resumo" aria-label="Resumo do pedido" hidden>
-            <h3>Resumo do pedido</h3>
-            <dl class="resumo__linhas">
-              <div><dt>Setor</dt><dd id="resumo-setor"></dd></div>
-              <div><dt>Ingressos</dt><dd id="resumo-qtd"></dd></div>
-              <div><dt>Valor por ingresso</dt><dd id="resumo-unit"></dd></div>
-              <div class="resumo__total"><dt>Total</dt><dd id="resumo-total"></dd></div>
-            </dl>
-            <div class="bilhetes" id="bilhetes"></div>
-            <p class="resumo__nota">Seleção de demonstração. Nada foi reservado nem cobrado.</p>
+
+      <nav class="subnav" aria-label="Seções da central de ingressos">
+        <ul class="subnav__lista">
+          <li><a href="#jogos">Jogos</a></li>
+          <li><a href="#mapa">Setor e assentos</a></li>
+          <li><a href="#precos">Preços</a></li>
+          <li><a href="#como-comprar">Como comprar</a></li>
+          <li><a href="#dia-de-jogo">Dia de jogo</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </nav>
+
+      <noscript><p class="aviso-js">Esta central usa JavaScript para listar os jogos e montar o mapa de assentos. Ative o JavaScript para usar.</p></noscript>
+
+      <section class="bloco" id="jogos" aria-labelledby="t-jogos">
+        <div class="bloco__cab">
+          <h2 id="t-jogos">Escolha o jogo</h2>
+          <p>Estes jogos são de exemplo: datas, horários e adversários não vêm da tabela oficial. Ao escolher um, os preços e os assentos livres mudam.</p>
+        </div>
+        <ul class="jogos" id="jogos-lista" aria-label="Jogos de exemplo"></ul>
+        <p class="jogo-escolhido" id="jogo-escolhido" aria-live="polite"></p>
+      </section>
+
+      <section class="bloco bloco--mapa" id="mapa" aria-labelledby="t-mapa">
+        <div class="bloco__cab">
+          <h2 id="t-mapa">Setor e assentos</h2>
+          <p>Toque em um setor do mapa, marque até quatro assentos e confira o resumo do pedido.</p>
+        </div>
+        <div class="mapa-layout">
+          <section class="estadio" aria-label="Mapa esquemático do estádio">
+            <div class="estadio__grade">
+              <button class="setor setor-oeste" type="button" data-setor="Oeste" aria-pressed="false"><span class="setor__nome">Oeste</span><span class="setor__preco"></span></button>
+              <button class="setor setor-norte" type="button" data-setor="Gol Norte" aria-pressed="false"><span class="setor__nome">Gol Norte</span><span class="setor__preco"></span></button>
+              <div class="campo" aria-hidden="true"></div>
+              <button class="setor setor-sul" type="button" data-setor="Gol Sul" aria-pressed="false"><span class="setor__nome">Gol Sul</span><span class="setor__preco"></span></button>
+              <button class="setor setor-leste" type="button" data-setor="Leste" aria-pressed="false"><span class="setor__nome">Leste</span><span class="setor__preco"></span></button>
+            </div>
+            <ul class="setores-info" aria-label="Resumo dos setores">
+              <li><strong>Oeste</strong><span>Vista lateral, mais próxima do centro do campo.</span><b data-preco-setor="Oeste"></b></li>
+              <li><strong>Leste</strong><span>Vista lateral do lado oposto.</span><b data-preco-setor="Leste"></b></li>
+              <li><strong>Gol Norte</strong><span>Atrás do gol, clima de arquibancada.</span><b data-preco-setor="Gol Norte"></b></li>
+              <li><strong>Gol Sul</strong><span>Atrás do gol, no lado contrário.</span><b data-preco-setor="Gol Sul"></b></li>
+            </ul>
+            <p class="estadio__aviso">Desenho simplificado. Não é a planta oficial, e os valores e a numeração das cadeiras são ilustrativos.</p>
           </section>
-          <p id="selecionado" class="so-leitor" aria-live="polite"></p>
-          <div class="acoes">
-            <button class="botao botao--contorno" type="button" id="limpar" hidden>Limpar seleção</button>
-            <a class="botao botao--claro" href="https://www.palmeiras.com.br/ingressos" target="_blank" rel="noopener noreferrer">Ir à venda oficial</a>
+          <aside class="mapa-info" aria-label="Escolha de assentos">
+            <ol class="passos" id="passos" aria-label="Etapas">
+              <li class="passo passo--ativo" data-passo="1"><b>1</b><span>Setor</span></li>
+              <li class="passo" data-passo="2"><b>2</b><span>Assentos</span></li>
+              <li class="passo" data-passo="3"><b>3</b><span>Resumo</span></li>
+            </ol>
+            <fieldset class="tipos" id="tipos">
+              <legend>Tipo de ingresso</legend>
+              <label class="tipo"><input type="radio" name="tipo" value="inteira" checked /><span><strong>Inteira</strong><small>Valor cheio</small></span></label>
+              <label class="tipo"><input type="radio" name="tipo" value="meia" /><span><strong>Meia</strong><small>50% do valor</small></span></label>
+              <label class="tipo"><input type="radio" name="tipo" value="socio" /><span><strong>Sócio Avanti</strong><small>30% a menos</small></span></label>
+            </fieldset>
+            <h3 class="mapa-info__titulo" id="titulo-setor">Escolha um setor</h3>
+            <p id="instrucao">Toque em Gol Norte, Gol Sul, Leste ou Oeste no mapa para ver os assentos ilustrativos.</p>
+            <p class="setor-meta" id="setor-meta" hidden></p>
+            <div id="assentos" class="assentos"></div>
+            <ul id="legenda-assentos" class="legenda-assentos" hidden><li><i class="livre"></i>Livre</li><li><i class="marcado"></i>Selecionado</li><li><i class="indisponivel"></i>Ocupado</li></ul>
+            <section class="resumo" id="resumo" aria-label="Resumo do pedido" hidden>
+              <h3>Resumo do pedido</h3>
+              <dl class="resumo__linhas">
+                <div><dt>Jogo</dt><dd id="resumo-jogo"></dd></div>
+                <div><dt>Setor</dt><dd id="resumo-setor"></dd></div>
+                <div><dt>Tipo</dt><dd id="resumo-tipo"></dd></div>
+                <div><dt>Ingressos</dt><dd id="resumo-qtd"></dd></div>
+                <div><dt>Valor por ingresso</dt><dd id="resumo-unit"></dd></div>
+                <div class="resumo__total"><dt>Total</dt><dd id="resumo-total"></dd></div>
+              </dl>
+              <div class="bilhetes" id="bilhetes"></div>
+              <p class="resumo__nota">Seleção de demonstração. Nada foi reservado nem cobrado.</p>
+            </section>
+            <p id="selecionado" class="so-leitor" aria-live="polite"></p>
+            <div class="acoes">
+              <button class="botao botao--contorno" type="button" id="limpar" hidden>Limpar seleção</button>
+              <a class="botao botao--claro" href="#jogos">Trocar de jogo</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="bloco" id="precos" aria-labelledby="t-precos">
+        <div class="bloco__cab">
+          <h2 id="t-precos">Preços por setor</h2>
+          <p id="precos-legenda">Valores de demonstração para o jogo escolhido.</p>
+        </div>
+        <div class="rolagem">
+          <table class="tabela-precos" id="tabela-precos">
+            <caption class="so-leitor">Preço por setor e tipo de ingresso</caption>
+            <thead><tr><th scope="col">Setor</th><th scope="col">Inteira</th><th scope="col">Meia</th><th scope="col">Sócio Avanti</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="nota-sec">Meia-entrada é metade do valor. O desconto do Sócio Avanti (30%) é uma regra inventada para este projeto.</p>
+      </section>
+
+      <section class="bloco" id="como-comprar" aria-labelledby="t-como">
+        <div class="bloco__cab">
+          <h2 id="t-como">Como comprar</h2>
+          <p>O caminho é este, do início ao fim. Aqui o pedido é só uma simulação e termina no resumo.</p>
+        </div>
+        <ol class="etapas">
+          <li><h3>Escolha o jogo</h3><p>Veja a data, o horário e o adversário. O preço muda conforme a importância da partida.</p></li>
+          <li><h3>Escolha o setor</h3><p>Oeste e Leste ficam nas laterais. Gol Norte e Gol Sul ficam atrás dos gols e custam menos.</p></li>
+          <li><h3>Marque os assentos</h3><p>Até quatro por pedido. Cadeiras riscadas já estão ocupadas.</p></li>
+          <li><h3>Confira o resumo</h3><p>Revise jogo, setor, tipo de ingresso e total. Em uma compra de verdade, o pagamento viria agora.</p></li>
+        </ol>
+      </section>
+
+      <section class="bloco" id="dia-de-jogo" aria-labelledby="t-dia">
+        <div class="bloco__cab">
+          <h2 id="t-dia">Dia de jogo</h2>
+          <p>Informações gerais para quem vai ao Allianz Parque. Regras e horários podem mudar de jogo para jogo.</p>
+        </div>
+        <div class="cartoes">
+          <article class="cartao">
+            <h3>Como chegar</h3>
+            <p>O estádio fica na Água Branca, zona oeste de São Paulo. O jeito mais comum é descer na estação Palmeiras–Barra Funda (Linha 3–Vermelha do Metrô e Linhas 7–Rubi e 8–Diamante da CPTM) e seguir a pé.</p>
+            <p>Nos dias de jogo a região tem bloqueios e muito movimento. Saia com folga.</p>
+          </article>
+          <article class="cartao">
+            <h3>Antes de entrar</h3>
+            <ul>
+              <li>Chegue com antecedência para evitar fila.</li>
+              <li>Leve documento com foto. Quem compra meia precisa comprovar o direito.</li>
+              <li>Deixe em casa o que não for necessário: mochilas grandes costumam dar trabalho na entrada.</li>
+            </ul>
+          </article>
+          <article class="cartao">
+            <h3>Quem paga meia</h3>
+            <p>Pela lei federal 12.933/2013, têm direito à meia-entrada estudantes, pessoas com 60 anos ou mais, pessoas com deficiência (e o acompanhante, quando necessário) e jovens de 15 a 29 anos de baixa renda inscritos no CadÚnico.</p>
+            <p>A lei limita a meia a 40% dos ingressos de cada evento.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="bloco" id="duvidas" aria-labelledby="t-duvidas">
+        <div class="bloco__cab">
+          <h2 id="t-duvidas">Dúvidas</h2>
+        </div>
+        <div class="duvidas">
+          <details>
+            <summary>Isto vende ingressos de verdade?</summary>
+            <p>Não. É um projeto escolar. Os jogos, os preços e os assentos são inventados para testar a interação, e nenhum dado de pagamento é pedido.</p>
+          </details>
+          <details>
+            <summary>Quantos ingressos posso escolher?</summary>
+            <p>Até quatro assentos por pedido, todos no mesmo setor. Para outro setor, escolha-o no mapa e marque de novo.</p>
+          </details>
+          <details>
+            <summary>Por que os assentos mudam quando troco de jogo?</summary>
+            <p>Cada jogo tem uma ocupação diferente, também inventada. Ao trocar de jogo, a seleção é limpa para você não ficar com uma cadeira que não existe mais.</p>
+          </details>
+          <details>
+            <summary>Como funciona o desconto de Sócio Avanti aqui?</summary>
+            <p>Escolher “Sócio Avanti” aplica 30% de desconto no valor, só para demonstrar a ideia. Se quiser testar o cadastro, a página do Sócio Avanti faz uma adesão simulada.</p>
+          </details>
+          <details>
+            <summary>Preciso de documento no estádio?</summary>
+            <p>É recomendável levar um documento com foto. Para meia-entrada ele costuma ser exigido, junto com a comprovação do direito.</p>
+          </details>
+          <details>
+            <summary>A planta do estádio é a oficial?</summary>
+            <p>Não. O mapa é um desenho simplificado, só com quatro setores, feito para este projeto.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="cta-avanti" aria-labelledby="t-cta">
+        <div class="cta-avanti__miolo">
+          <div>
+            <h2 id="t-cta">Quer pagar menos nos jogos?</h2>
+            <p>Faça a adesão simulada do Sócio Avanti e veja a carteirinha com seu nome.</p>
           </div>
-        </aside>
-      </div>
+          <a class="botao botao--claro" href="../pages/avanti.html">Conhecer o Sócio Avanti</a>
+        </div>
+      </section>
     </main>
     <footer class="rodape escuro">
       <div class="rodape__topo">
