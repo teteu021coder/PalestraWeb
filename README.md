@@ -43,7 +43,7 @@ O banco SQLite é criado automaticamente na primeira execução. As tabelas e os
 - Permite cadastrar um sócio.
 - Salva os dados no banco SQLite.
 - Gera uma carteirinha de demonstração.
-- Permite consultar a carteirinha pelo número e e-mail.
+- Permite consultar e cancelar uma adesão usando o número da carteirinha e o e-mail.
 
 A página de ingressos também é uma demonstração visual: não consulta disponibilidade real e não realiza compras.
 
