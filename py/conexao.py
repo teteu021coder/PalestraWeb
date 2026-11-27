@@ -10,12 +10,15 @@ def conectar():
     banco = PASTA / "banco" / "avanti.db"
     banco.parent.mkdir(parents=True, exist_ok=True)
 
-    novo = not banco.exists()
     conexao = sqlite3.connect(banco)
     conexao.row_factory = sqlite3.Row
     conexao.execute("PRAGMA foreign_keys = ON")
 
-    if novo:
+    tabela = conexao.execute(
+        "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'plano'"
+    ).fetchone()
+
+    if tabela is None:
         sql = (PASTA / "sql" / "schema.sql").read_text(encoding="utf-8")
         conexao.executescript(sql)
 
