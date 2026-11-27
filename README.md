@@ -1,39 +1,52 @@
 # Arquivo Palestra
 
-Site sobre a história do Palmeiras, com uma aba de **Sócio Avanti** ligada a um back-end em Flask e a um banco SQLite. Projeto Integrado de DWS, POO e Banco de Dados. Não é um site oficial do clube.
+Site escolar sobre a história do Palmeiras, com uma área de cadastro demonstrativo do Sócio Avanti.
 
-## Como rodar
+O projeto foi feito para praticar **HTML, CSS, JavaScript, Python, Flask, POO e Banco de Dados**. Não é um site oficial do Palmeiras. Os planos, valores e ingressos são apenas exemplos.
+
+## Como executar
+
+1. Instale o Python.
+2. Abra a pasta do projeto no terminal.
+3. Instale o Flask:
 
 ```bash
 pip install -r py/requirements.txt
+```
+
+4. Inicie o sistema:
+
+```bash
 python py/app.py
 ```
 
-Abra <http://127.0.0.1:5000>. O Flask serve o site e a API no mesmo endereço, e o banco (`py/banco/avanti.db`) é criado na primeira execução. Para outra porta: `PORT=8000 python py/app.py`.
+5. Abra no navegador: http://127.0.0.1:5000
 
-> O GitHub Pages só hospeda arquivos estáticos. O cadastro do Avanti precisa do Flask rodando.
+O banco SQLite é criado automaticamente na primeira execução. As tabelas e os planos iniciais estão no arquivo py/sql/schema.sql.
 
-## Testes
+## Organização do projeto
 
-Os testes usam um banco temporário e não mexem em `py/banco/avanti.db`.
-
-```bash
-python py/test_api.py -v
-```
-
-## Como as camadas se encontram
-
-| Camada | Onde |
+| Parte | Arquivos |
 | --- | --- |
-| Front-end (HTML, CSS, JS com `fetch`) | `index.html`, `pages/`, `css/`, `js/` |
-| Rotas Flask | `py/app.py` |
-| Classes e validações (POO) | `py/modelos.py` |
-| Acesso ao banco (DAOs) | `py/dao.py`, `py/conexao.py` |
-| Banco de dados | `py/sql/schema.sql`, `py/sql/dados.sql` |
-| Modelagem e rotas | `docs/modelagem.md` |
+| Site (HTML) | index.html e pasta pages/ |
+| Estilos (CSS) | pasta css/ |
+| Interações (JavaScript) | pasta js/ |
+| Servidor e rotas (Flask) | py/app.py |
+| Classes (POO) | py/modelos.py |
+| Acesso ao banco | py/dao.py e py/conexao.py |
+| Banco de dados (SQL) | py/sql/schema.sql |
+| Modelagem | pasta docs/ |
 
-## Páginas
+## O que o sistema faz
 
-História, Conquistas, Ídolos e elenco, Galeria, Ingressos (mapa ilustrativo) e Sócio Avanti (cadastro, consulta e cancelamento de carteirinha).
+- Mostra os planos disponíveis.
+- Permite cadastrar um sócio.
+- Salva os dados no banco SQLite.
+- Gera uma carteirinha de demonstração.
+- Permite consultar a carteirinha pelo número e e-mail.
 
-Créditos de imagens, fontes tipográficas e referências em `docs/creditos.html`.
+A página de ingressos também é uma demonstração visual: não consulta disponibilidade real e não realiza compras.
+
+## Observação
+
+O GitHub Pages hospeda apenas páginas estáticas. Para usar o cadastro, que depende do Python e do banco de dados, é necessário executar o Flask.
